@@ -286,7 +286,7 @@ namespace RecipeBrowser
 		private int[] itemTexturePreload =
 		{
 			ItemID.MetalDetector, ItemID.SpellTome, ItemID.IronAnvil, ItemID.MythrilAnvil, ItemID.Blindfold, ItemID.GoldBroadsword, ItemID.GoldenShower, ItemID.FlintlockPistol,
-			ItemID.Shuriken, ItemID.SlimeStaff, ItemID.DD2LightningAuraT1Popper, ItemID.SilverHelmet, ItemID.SilverChainmail, ItemID.SilverGreaves,
+			ItemID.Shuriken, ItemID.SlimeStaff, ItemID.BlandWhip, ItemID.DD2LightningAuraT1Popper, ItemID.SilverHelmet, ItemID.SilverChainmail, ItemID.SilverGreaves,
 			ItemID.BunnyHood, ItemID.HerosHat, ItemID.GoldHelmet, ItemID.Sign, ItemID.IronAnvil, ItemID.PearlstoneBrickWall, ItemID.EoCShield,
 			ItemID.ZephyrFish, ItemID.FairyBell, ItemID.MechanicalSkull, ItemID.SlimySaddle, ItemID.AmethystHook, ItemID.OrangeDye, ItemID.BiomeHairDye,
 			ItemID.FallenStarfish, ItemID.HermesBoots, ItemID.LeafWings, ItemID.Minecart, ItemID.HealingPotion, ItemID.ManaPotion, ItemID.RagePotion,
@@ -302,7 +302,7 @@ namespace RecipeBrowser
 				Main.instance.LoadItem(type); // needs ImmediateLoad. Could do this setup in Load if determined to be slow.
 
 			//Texture2D terrariaSort = ResizeImage(Main.inventorySortTexture[1], 24, 24);
-			Texture2D rarity = ResizeImage(TextureAssets.Item[ItemID.MetalDetector], 24, 24);
+			Asset<Texture2D> rarity = ResizeImage(TextureAssets.Item[ItemID.MetalDetector], 24, 24);
 
 			// TODO: Implement Badge text as used in Item Checklist.
 			sorts = new List<Sort>()
@@ -314,11 +314,11 @@ namespace RecipeBrowser
 				//new Sort("Terraria Sort", terrariaSort, (x,y)=> -ItemChecklistUI.vanillaIDsInSortOrder[x.type].CompareTo(ItemChecklistUI.vanillaIDsInSortOrder[y.type]), x=>ItemChecklistUI.vanillaIDsInSortOrder[x.type].ToString()),
 			};
 
-			Texture2D materialsIcon = Utilities.StackResizeImage(new[] { TextureAssets.Item[ItemID.SpellTome] }, 24, 24);
-			Texture2D craftableIcon = ResizeImage(TextureAssets.Item[ItemID.IronAnvil], 24, 24);
-			Texture2D extendedCraftIcon = ResizeImage(TextureAssets.Item[ItemID.MythrilAnvil], 24, 24);
-			Texture2D unresearchedIcon = Utilities.StackResizeImage(new[] { Main.Assets.Request<Texture2D>("Images/UI/WorldCreation/IconDifficultyCreative") }, 24, 24);
-			Texture2D disabledIcon = ResizeImage(TextureAssets.Item[ItemID.Blindfold], 24, 24);
+			Asset<Texture2D> materialsIcon = Utilities.StackResizeImage(new[] { TextureAssets.Item[ItemID.SpellTome] }, 24, 24);
+			Asset<Texture2D> craftableIcon = ResizeImage(TextureAssets.Item[ItemID.IronAnvil], 24, 24);
+			Asset<Texture2D> extendedCraftIcon = ResizeImage(TextureAssets.Item[ItemID.MythrilAnvil], 24, 24);
+			Asset<Texture2D> unresearchedIcon = Utilities.StackResizeImage(new[] { Main.Assets.Request<Texture2D>("Images/UI/WorldCreation/IconDifficultyCreative") }, 24, 24);
+			Asset<Texture2D> disabledIcon = ResizeImage(TextureAssets.Item[ItemID.Blindfold], 24, 24);
 			filters = new List<Filter>()
 			{
 				new Filter("Materials", x=>x.material, materialsIcon),
@@ -372,60 +372,61 @@ namespace RecipeBrowser
 			var ammoFilter = new CycleFilter("Cycle Ammo Types", "Images/sortAmmo", ammoFilters);
 			var useAmmoFilter = new CycleFilter("Cycle Used Ammo Types", "Images/sortAmmo", useAmmoFilters);
 
-			Texture2D smallMelee = ResizeImage(TextureAssets.Item[ItemID.GoldBroadsword], 24, 24);
-			Texture2D smallYoyo = ResizeImage(TextureAssets.Item[Main.rand.Next(yoyos)], 24, 24); //Main.rand.Next(ItemID.Sets.Yoyo) ItemID.Yelets
-			Texture2D smallMagic = ResizeImage(TextureAssets.Item[ItemID.GoldenShower], 24, 24);
-			Texture2D smallRanged = ResizeImage(TextureAssets.Item[ItemID.FlintlockPistol], 24, 24);
-			Texture2D smallThrown = ResizeImage(TextureAssets.Item[ItemID.Shuriken], 24, 24);
-			Texture2D smallSummon = ResizeImage(TextureAssets.Item[ItemID.SlimeStaff], 24, 24);
-			Texture2D smallSentry = ResizeImage(TextureAssets.Item[ItemID.DD2LightningAuraT1Popper], 24, 24);
-			Texture2D smallHead = ResizeImage(TextureAssets.Item[ItemID.SilverHelmet], 24, 24);
-			Texture2D smallBody = ResizeImage(TextureAssets.Item[ItemID.SilverChainmail], 24, 24);
-			Texture2D smallLegs = ResizeImage(TextureAssets.Item[ItemID.SilverGreaves], 24, 24);
-			Texture2D smallVanity = ResizeImage(TextureAssets.Item[ItemID.BunnyHood], 24, 24);
-			//Texture2D smallVanity2 = ResizeImage(TextureAssets.Item[ItemID.HerosHat], 24, 24);
-			Texture2D smallNonVanity = ResizeImage(TextureAssets.Item[ItemID.GoldHelmet], 24, 24);
-			Texture2D smallTiles = ResizeImage(TextureAssets.Item[ItemID.Sign], 24, 24);
-			Texture2D smallCraftingStation = ResizeImage(TextureAssets.Item[ItemID.IronAnvil], 24, 24);
-			Texture2D smallWalls = ResizeImage(TextureAssets.Item[ItemID.PearlstoneBrickWall], 24, 24);
-			Texture2D smallExpert = ResizeImage(TextureAssets.Item[ItemID.EoCShield], 24, 24);
-			Texture2D smallPets = ResizeImage(TextureAssets.Item[ItemID.ZephyrFish], 24, 24);
-			Texture2D smallLightPets = ResizeImage(TextureAssets.Item[ItemID.FairyBell], 24, 24);
-			Texture2D smallBossSummon = ResizeImage(TextureAssets.Item[ItemID.MechanicalSkull], 24, 24);
-			Texture2D smallMounts = ResizeImage(TextureAssets.Item[ItemID.SlimySaddle], 24, 24);
-			Texture2D smallHooks = ResizeImage(TextureAssets.Item[ItemID.AmethystHook], 24, 24);
-			Texture2D smallDyes = ResizeImage(TextureAssets.Item[ItemID.OrangeDye], 24, 24);
-			Texture2D smallHairDye = ResizeImage(TextureAssets.Item[ItemID.BiomeHairDye], 24, 24);
-			Texture2D smallQuestFish = ResizeImage(TextureAssets.Item[ItemID.FallenStarfish], 24, 24);
-			Texture2D smallAccessories = ResizeImage(TextureAssets.Item[ItemID.HermesBoots], 24, 24);
-			Texture2D smallWings = ResizeImage(TextureAssets.Item[ItemID.LeafWings], 24, 24);
-			Texture2D smallCarts = ResizeImage(TextureAssets.Item[ItemID.Minecart], 24, 24);
-			Texture2D smallHealth = ResizeImage(TextureAssets.Item[ItemID.HealingPotion], 24, 24);
-			Texture2D smallMana = ResizeImage(TextureAssets.Item[ItemID.ManaPotion], 24, 24);
-			Texture2D smallBuff = ResizeImage(TextureAssets.Item[ItemID.RagePotion], 24, 24);
-			Texture2D smallAll = ResizeImage(TextureAssets.Item[ItemID.AlphabetStatueA], 24, 24);
-			Texture2D smallContainer = ResizeImage(TextureAssets.Item[ItemID.GoldChest], 24, 24);
-			Texture2D smallPaintings = ResizeImage(TextureAssets.Item[ItemID.PaintingMartiaLisa], 24, 24);
-			Texture2D smallStatue = ResizeImage(TextureAssets.Item[ItemID.HeartStatue], 24, 24);
-			Texture2D smallWiring = ResizeImage(TextureAssets.Item[ItemID.Wire], 24, 24);
-			Texture2D smallConsumables = ResizeImage(TextureAssets.Item[ItemID.PurificationPowder], 24, 24);
-			Texture2D smallGrabBags = ResizeImage(TextureAssets.Item[ItemID.KingSlimeBossBag], 24, 24);
-			Texture2D smallExtractinator = ResizeImage(TextureAssets.Item[ItemID.Extractinator], 24, 24);
-			Texture2D smallOther = ResizeImage(TextureAssets.Item[ItemID.UnicornonaStick], 24, 24);
+			Asset<Texture2D> smallMelee = ResizeImage(TextureAssets.Item[ItemID.GoldBroadsword], 24, 24);
+			Asset<Texture2D> smallYoyo = ResizeImage(TextureAssets.Item[Main.rand.Next(yoyos)], 24, 24); //Main.rand.Next(ItemID.Sets.Yoyo) ItemID.Yelets
+			Asset<Texture2D> smallMagic = ResizeImage(TextureAssets.Item[ItemID.GoldenShower], 24, 24);
+			Asset<Texture2D> smallRanged = ResizeImage(TextureAssets.Item[ItemID.FlintlockPistol], 24, 24);
+			Asset<Texture2D> smallThrown = ResizeImage(TextureAssets.Item[ItemID.Shuriken], 24, 24);
+			Asset<Texture2D> smallSummon = ResizeImage(TextureAssets.Item[ItemID.SlimeStaff], 24, 24);
+			Asset<Texture2D> smallWhip = ResizeImage(TextureAssets.Item[ItemID.BlandWhip], 24, 24);
+			Asset<Texture2D> smallSentry = ResizeImage(TextureAssets.Item[ItemID.DD2LightningAuraT1Popper], 24, 24);
+			Asset<Texture2D> smallHead = ResizeImage(TextureAssets.Item[ItemID.SilverHelmet], 24, 24);
+			Asset<Texture2D> smallBody = ResizeImage(TextureAssets.Item[ItemID.SilverChainmail], 24, 24);
+			Asset<Texture2D> smallLegs = ResizeImage(TextureAssets.Item[ItemID.SilverGreaves], 24, 24);
+			Asset<Texture2D> smallVanity = ResizeImage(TextureAssets.Item[ItemID.BunnyHood], 24, 24);
+			//Asset<Texture2D> smallVanity2 = ResizeImage(TextureAssets.Item[ItemID.HerosHat], 24, 24);
+			Asset<Texture2D> smallNonVanity = ResizeImage(TextureAssets.Item[ItemID.GoldHelmet], 24, 24);
+			Asset<Texture2D> smallTiles = ResizeImage(TextureAssets.Item[ItemID.Sign], 24, 24);
+			Asset<Texture2D> smallCraftingStation = ResizeImage(TextureAssets.Item[ItemID.IronAnvil], 24, 24);
+			Asset<Texture2D> smallWalls = ResizeImage(TextureAssets.Item[ItemID.PearlstoneBrickWall], 24, 24);
+			Asset<Texture2D> smallExpert = ResizeImage(TextureAssets.Item[ItemID.EoCShield], 24, 24);
+			Asset<Texture2D> smallPets = ResizeImage(TextureAssets.Item[ItemID.ZephyrFish], 24, 24);
+			Asset<Texture2D> smallLightPets = ResizeImage(TextureAssets.Item[ItemID.FairyBell], 24, 24);
+			Asset<Texture2D> smallBossSummon = ResizeImage(TextureAssets.Item[ItemID.MechanicalSkull], 24, 24);
+			Asset<Texture2D> smallMounts = ResizeImage(TextureAssets.Item[ItemID.SlimySaddle], 24, 24);
+			Asset<Texture2D> smallHooks = ResizeImage(TextureAssets.Item[ItemID.AmethystHook], 24, 24);
+			Asset<Texture2D> smallDyes = ResizeImage(TextureAssets.Item[ItemID.OrangeDye], 24, 24);
+			Asset<Texture2D> smallHairDye = ResizeImage(TextureAssets.Item[ItemID.BiomeHairDye], 24, 24);
+			Asset<Texture2D> smallQuestFish = ResizeImage(TextureAssets.Item[ItemID.FallenStarfish], 24, 24);
+			Asset<Texture2D> smallAccessories = ResizeImage(TextureAssets.Item[ItemID.HermesBoots], 24, 24);
+			Asset<Texture2D> smallWings = ResizeImage(TextureAssets.Item[ItemID.LeafWings], 24, 24);
+			Asset<Texture2D> smallCarts = ResizeImage(TextureAssets.Item[ItemID.Minecart], 24, 24);
+			Asset<Texture2D> smallHealth = ResizeImage(TextureAssets.Item[ItemID.HealingPotion], 24, 24);
+			Asset<Texture2D> smallMana = ResizeImage(TextureAssets.Item[ItemID.ManaPotion], 24, 24);
+			Asset<Texture2D> smallBuff = ResizeImage(TextureAssets.Item[ItemID.RagePotion], 24, 24);
+			Asset<Texture2D> smallAll = ResizeImage(TextureAssets.Item[ItemID.AlphabetStatueA], 24, 24);
+			Asset<Texture2D> smallContainer = ResizeImage(TextureAssets.Item[ItemID.GoldChest], 24, 24);
+			Asset<Texture2D> smallPaintings = ResizeImage(TextureAssets.Item[ItemID.PaintingMartiaLisa], 24, 24);
+			Asset<Texture2D> smallStatue = ResizeImage(TextureAssets.Item[ItemID.HeartStatue], 24, 24);
+			Asset<Texture2D> smallWiring = ResizeImage(TextureAssets.Item[ItemID.Wire], 24, 24);
+			Asset<Texture2D> smallConsumables = ResizeImage(TextureAssets.Item[ItemID.PurificationPowder], 24, 24);
+			Asset<Texture2D> smallGrabBags = ResizeImage(TextureAssets.Item[ItemID.KingSlimeBossBag], 24, 24);
+			Asset<Texture2D> smallExtractinator = ResizeImage(TextureAssets.Item[ItemID.Extractinator], 24, 24);
+			Asset<Texture2D> smallOther = ResizeImage(TextureAssets.Item[ItemID.UnicornonaStick], 24, 24);
 
-			Texture2D smallArmor = StackResizeImage(new[] { TextureAssets.Item[ItemID.SilverHelmet], TextureAssets.Item[ItemID.SilverChainmail], TextureAssets.Item[ItemID.SilverGreaves] }, 24, 24);
+			Asset<Texture2D> smallArmor = StackResizeImage(new[] { TextureAssets.Item[ItemID.SilverHelmet], TextureAssets.Item[ItemID.SilverChainmail], TextureAssets.Item[ItemID.SilverGreaves] }, 24, 24);
 			//Texture2D smallVanityFilterGroup = StackResizeImage2424(TextureAssets.Item[ItemID.BunnyHood], TextureAssets.Item[ItemID.GoldHelmet]);
-			Texture2D smallPetsLightPets = StackResizeImage(new[] { TextureAssets.Item[ItemID.ZephyrFish], TextureAssets.Item[ItemID.FairyBell] }, 24, 24);
-			Texture2D smallPlaceables = StackResizeImage(new[] { TextureAssets.Item[ItemID.Sign], TextureAssets.Item[ItemID.PearlstoneBrickWall] }, 24, 24);
-			Texture2D smallWeapons = StackResizeImage(new[] { smallMelee, smallMagic, smallThrown }, 24, 24);
-			Texture2D smallTools = StackResizeImage(new[] { RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortPick"), RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortAxe"), RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortHammer") }, 24, 24);
-			Texture2D smallFishing = StackResizeImage(new[] { RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortFish"), RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortBait"), TextureAssets.Item[ItemID.FallenStarfish] }, 24, 24);
-			Texture2D smallPotions = StackResizeImage(new[] { TextureAssets.Item[ItemID.HealingPotion], TextureAssets.Item[ItemID.ManaPotion], TextureAssets.Item[ItemID.RagePotion] }, 24, 24);
-			Texture2D smallBothDyes = StackResizeImage(new[] { TextureAssets.Item[ItemID.OrangeDye], TextureAssets.Item[ItemID.BiomeHairDye] }, 24, 24);
-			Texture2D smallSortTiles = StackResizeImage(new[] { TextureAssets.Item[ItemID.Candelabra], TextureAssets.Item[ItemID.GrandfatherClock] }, 24, 24);
+			Asset<Texture2D> smallPetsLightPets = StackResizeImage(new[] { TextureAssets.Item[ItemID.ZephyrFish], TextureAssets.Item[ItemID.FairyBell] }, 24, 24);
+			Asset<Texture2D> smallPlaceables = StackResizeImage(new[] { TextureAssets.Item[ItemID.Sign], TextureAssets.Item[ItemID.PearlstoneBrickWall] }, 24, 24);
+			Asset<Texture2D> smallWeapons = StackResizeImage(new[] { smallMelee, smallMagic, smallThrown }, 24, 24);
+			Asset<Texture2D> smallTools = StackResizeImage(new[] { RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortPick"), RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortAxe"), RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortHammer") }, 24, 24);
+			Asset<Texture2D> smallFishing = StackResizeImage(new[] { RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortFish"), RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortBait"), TextureAssets.Item[ItemID.FallenStarfish] }, 24, 24);
+			Asset<Texture2D> smallPotions = StackResizeImage(new[] { TextureAssets.Item[ItemID.HealingPotion], TextureAssets.Item[ItemID.ManaPotion], TextureAssets.Item[ItemID.RagePotion] }, 24, 24);
+			Asset<Texture2D> smallBothDyes = StackResizeImage(new[] { TextureAssets.Item[ItemID.OrangeDye], TextureAssets.Item[ItemID.BiomeHairDye] }, 24, 24);
+			Asset<Texture2D> smallSortTiles = StackResizeImage(new[] { TextureAssets.Item[ItemID.Candelabra], TextureAssets.Item[ItemID.GrandfatherClock] }, 24, 24);
 
-			Texture2D StackResizeImage2424(params Asset<Texture2D>[] textures) => StackResizeImage(textures, 24, 24);
-			Texture2D ResizeImage2424(Asset<Texture2D> texture) => ResizeImage(texture, 24, 24);
+			Asset<Texture2D> StackResizeImage2424(params Asset<Texture2D>[] textures) => StackResizeImage(textures, 24, 24);
+			Asset<Texture2D> ResizeImage2424(Asset<Texture2D> texture) => ResizeImage(texture, 24, 24);
 
 			// Potions, other?
 			// should inherit children?
@@ -452,7 +453,8 @@ namespace RecipeBrowser
 							filters = new List<Filter> { useAmmoFilter }
 						},
 						new Category("Throwing", x=>x.CountsAsClass(DamageClass.Throwing), smallThrown),
-						new Category("Summon", x=>x.CountsAsClass(DamageClass.Summon) && !x.sentry, smallSummon),
+						new Category("Summon", x=>x.CountsAsClass(DamageClass.Summon) && !x.sentry && !ProjectileID.Sets.IsAWhip[x.shoot], smallSummon),
+						new Category("Whip", x=>x.CountsAsClass(DamageClass.Summon) && !x.sentry && ProjectileID.Sets.IsAWhip[x.shoot] , smallWhip),
 						new Category("Sentry", x=>x.CountsAsClass(DamageClass.Summon) && x.sentry, smallSentry),
 					},
 					sorts = new List<Sort>() { new Sort("Damage", "Images/sortDamage", (x,y)=>x.damage.CompareTo(y.damage)), },
@@ -724,10 +726,10 @@ namespace RecipeBrowser
 		internal List<Category> subCategories;
 		internal List<Sort> sorts;
 		internal UISilentImageButton button;
-		internal Texture2D texture;
+		internal Asset<Texture2D> texture;
 		//internal Category parent;
 
-		public Filter(string name, Predicate<Item> belongs, Texture2D texture) {
+		public Filter(string name, Predicate<Item> belongs, Asset<Texture2D> texture) {
 			this.name = name;
 			this.texture = texture;
 			subCategories = new List<Category>();
@@ -748,7 +750,7 @@ namespace RecipeBrowser
 	{
 		List<Filter> exclusives;
 
-		public MutuallyExclusiveFilter(string name, Predicate<Item> belongs, Texture2D texture) : base(name, belongs, texture) {
+		public MutuallyExclusiveFilter(string name, Predicate<Item> belongs, Asset<Texture2D> texture) : base(name, belongs, texture) {
 			button.OnLeftClick += (a, b) => {
 				if (button.selected) {
 					foreach (var item in exclusives) {
@@ -769,7 +771,7 @@ namespace RecipeBrowser
 	{
 		bool right;
 		string other;
-		public DoubleFilter(string name, string other, Texture2D texture, Predicate<Item> belongs) : base(name, belongs, texture) {
+		public DoubleFilter(string name, string other, Asset<Texture2D> texture, Predicate<Item> belongs) : base(name, belongs, texture) {
 			this.other = other;
 			this.belongs = (item) => {
 				return belongs(item) ^ right;
@@ -798,10 +800,10 @@ namespace RecipeBrowser
 		List<UISilentImageButton> buttons = new List<UISilentImageButton>();
 
 		public CycleFilter(string name, string textureFileName, List<Filter> filters) :
-			this(name, RecipeBrowser.instance.Assets.Request<Texture2D>(textureFileName, AssetRequestMode.ImmediateLoad).Value, filters) {
+			this(name, RecipeBrowser.instance.Assets.Request<Texture2D>(textureFileName, AssetRequestMode.ImmediateLoad), filters) {
 		}
 
-		public CycleFilter(string name, Texture2D texture, List<Filter> filters) : base(name, (item) => false, texture) {
+		public CycleFilter(string name, Asset<Texture2D> texture, List<Filter> filters) : base(name, (item) => false, texture) {
 			this.filters = filters;
 			this.belongs = (item) => {
 				return index == 0 ? true : filters[index - 1].belongs(item);
@@ -843,7 +845,7 @@ namespace RecipeBrowser
 		internal Func<Item, Item, int> sort;
 		internal UISilentImageButton button;
 
-		public Sort(string hoverText, Texture2D texture, Func<Item, Item, int> sort) {
+		public Sort(string hoverText, Asset<Texture2D> texture, Func<Item, Item, int> sort) {
 			this.sort = sort;
 			button = new UISilentImageButton(texture, hoverText);
 			button.OnLeftClick += (a, b) => {
@@ -852,7 +854,7 @@ namespace RecipeBrowser
 		}
 
 		public Sort(string hoverText, string textureFileName, Func<Item, Item, int> sort) :
-			this(hoverText, RecipeBrowser.instance.Assets.Request<Texture2D>(textureFileName, AssetRequestMode.ImmediateLoad).Value, sort) {
+			this(hoverText, RecipeBrowser.instance.Assets.Request<Texture2D>(textureFileName, AssetRequestMode.ImmediateLoad), sort) {
 		}
 	}
 
@@ -861,9 +863,9 @@ namespace RecipeBrowser
 	{
 		internal string name;
 		internal string parent;
-		internal Texture2D icon;
+		internal Asset<Texture2D> icon;
 		internal Predicate<Item> belongs;
-		public ModCategory(string name, string parent, Texture2D icon, Predicate<Item> belongs) {
+		public ModCategory(string name, string parent, Asset<Texture2D> icon, Predicate<Item> belongs) {
 			this.name = name;
 			this.parent = parent;
 			this.icon = icon;
@@ -883,16 +885,18 @@ namespace RecipeBrowser
 		internal List<Filter> filters;
 		internal UISilentImageButton button;
 		internal Category parent;
+		// Pass in other Category to exclude?
 
-		public Category(string name, Predicate<Item> belongs, Texture2D texture = null) {
+		public Category(string name, Predicate<Item> belongs, Asset<Texture2D> texture = null) {
 			if (texture == null)
-				texture = RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortAmmo", AssetRequestMode.ImmediateLoad).Value;
+				texture = RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortAmmo", AssetRequestMode.ImmediateLoad);
 			this.name = name;
 			subCategories = new List<Category>();
 			sorts = new List<Sort>();
 			filters = new List<Filter>();
 			this.belongs = belongs;
 
+			texture.Wait();
 			this.button = new UISilentImageButton(texture, name);
 			button.OnLeftClick += (a, b) => {
 				//Main.NewText("clicked on " + button.hoverText);
@@ -901,7 +905,7 @@ namespace RecipeBrowser
 		}
 
 		public Category(string name, Predicate<Item> belongs, string textureFileName) :
-			this(name, belongs, RecipeBrowser.instance.Assets.Request<Texture2D>(textureFileName, AssetRequestMode.ImmediateLoad).Value) {
+			this(name, belongs, RecipeBrowser.instance.Assets.Request<Texture2D>(textureFileName, AssetRequestMode.ImmediateLoad)) {
 		}
 
 		internal bool BelongsRecursive(Item item) {

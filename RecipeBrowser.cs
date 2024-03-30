@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
 using RecipeBrowser.UIElements;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Terraria;
@@ -17,6 +13,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.ID;
+using ReLogic.Content;
 
 namespace RecipeBrowser
 {
@@ -350,7 +347,7 @@ namespace RecipeBrowser
 				{
 					string sortName = args[1] as string;
 					string parentName = args[2] as string;
-					Texture2D icon = args[3] as Texture2D;
+					Asset<Texture2D> icon = InterpretObjectAsAssetTexture(args[3]);
 					Predicate<Item> belongs = args[4] as Predicate<Item>;
 					if (!Main.dedServ)
 						modCategories.Add(new ModCategory(sortName, parentName, icon, belongs));
@@ -361,7 +358,7 @@ namespace RecipeBrowser
 				{
 					string sortName = args[1] as string;
 					string parentName = args[2] as string;
-					Texture2D icon = args[3] as Texture2D;
+					Asset<Texture2D> icon = InterpretObjectAsAssetTexture(args[3]);
 					Predicate<Item> belongs = args[4] as Predicate<Item>;
 					if (!Main.dedServ)
 						modFilters.Add(new ModCategory(sortName, parentName, icon, belongs));
@@ -378,6 +375,10 @@ namespace RecipeBrowser
 				Logger.Error("Call Error: " + e.StackTrace + e.Message);
 			}
 			return "Failure";
+		}
+
+		Asset<Texture2D> InterpretObjectAsAssetTexture(object data) {
+			return data is Texture2D ? (data as Texture2D).ToAsset() : data as Asset<Texture2D>;
 		}
 
 		/*public override void AddRecipes()

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent;
@@ -15,24 +14,38 @@ namespace RecipeBrowser
 {
 	static class Utilities
 	{
-		//public static Asset<Texture2D> ToAsset(this Texture2D texture)
+		public static Asset<Texture2D> ToAsset(this Texture2D texture)
+		{
+			// TODO: Is this inefficient? Is there a way to make an Asset from an actual Texture2D instead of this?
+			using MemoryStream stream = new();
+
+			if (!Program.IsMainThread) {
+				Main.RunOnMainThread(() => {
+					texture.SaveAsPng(stream, texture.Width, texture.Height);
+					stream.Position = 0;
+				}).GetAwaiter().GetResult();
+			}
+			else {
+				texture.SaveAsPng(stream, texture.Width, texture.Height);
+				stream.Position = 0;
+			}
+
+			return RecipeBrowser.instance.Assets.CreateUntracked<Texture2D>(stream, texture.Name ?? "NoName.png");
+		}
+
+		//internal static Texture2D StackResizeImage(Asset<Texture2D>[] texture2D, int desiredWidth, int desiredHeight)
 		//{
-		//	using MemoryStream stream = new();
-		//	texture.SaveAsPng(stream, texture.Width, texture.Height);
-		//	stream.Position = 0;
-		//	return RecipeBrowser.instance.Assets.CreateUntracked<Texture2D>(stream, "any.png");
+		//	foreach (Asset<Texture2D> asset in texture2D)
+		//		asset.Wait?.Invoke();
+
+		//	return StackResizeImage(texture2D.Select(asset => asset.Value).ToArray(), desiredWidth, desiredHeight);
 		//}
 
-		internal static Texture2D StackResizeImage(Asset<Texture2D>[] texture2D, int desiredWidth, int desiredHeight)
+		internal static Asset<Texture2D> StackResizeImage(Asset<Texture2D>[] texture2D, int desiredWidth, int desiredHeight)
 		{
 			foreach (Asset<Texture2D> asset in texture2D)
 				asset.Wait?.Invoke();
 
-			return StackResizeImage(texture2D.Select(asset => asset.Value).ToArray(), desiredWidth, desiredHeight);
-		}
-
-		internal static Texture2D StackResizeImage(Texture2D[] texture2D, int desiredWidth, int desiredHeight)
-		{
 			float overlap = .5f;
 			float totalScale = 1 / (1f + ((1 - overlap) * (texture2D.Length - 1)));
 			int newWidth = (int)(desiredWidth * totalScale);
@@ -48,17 +61,17 @@ namespace RecipeBrowser
 			foreach (var texture in texture2D)
 			{
 				float scale = 1;
-				if (texture.Width > newWidth || texture.Height > newHeight)
+				if (texture.Value.Width > newWidth || texture.Value.Height > newHeight)
 				{
-					if (texture.Height > texture.Width)
-						scale = (float)newHeight / texture.Height;
+					if (texture.Value.Height > texture.Value.Width)
+						scale = (float)newHeight / texture.Value.Height;
 					else
-						scale = (float)newWidth / texture.Width;
+						scale = (float)newWidth / texture.Value.Width;
 				}
 
 				Vector2 position = new Vector2(newWidth / 2, newHeight / 2);
 				position += new Vector2(index * (1 - overlap) * newWidth, index * (1 - overlap) * newHeight);
-				Main.spriteBatch.Draw(texture, position, null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(texture.Value, position, null, Color.White, 0f, new Vector2(texture.Value.Width / 2, texture.Value.Height / 2), scale, SpriteEffects.None, 0f);
 				index++;
 			}
 			Main.spriteBatch.End();
@@ -69,33 +82,35 @@ namespace RecipeBrowser
 			renderTarget.GetData<Color>(content);
 			mergedTexture.SetData<Color>(content);
 
-			return mergedTexture;
+			// TODO: Is there a way to make an Asset from the Color[] directly?
+			return mergedTexture.ToAsset();
 		}
 
-		internal static Texture2D ResizeImage(Asset<Texture2D> asset, int desiredWidth, int desiredHeight)
-		{
-			asset.Wait?.Invoke();
-			return ResizeImage(asset.Value, desiredWidth, desiredHeight);
-		}
+		//internal static Asset<Texture2D> ResizeImage(Asset<Texture2D> asset, int desiredWidth, int desiredHeight)
+		//{
+		//	asset.Wait?.Invoke();
+		//	return ResizeImage(asset.Value, desiredWidth, desiredHeight);
+		//}
 
-		internal static Texture2D ResizeImage(Texture2D texture2D, int desiredWidth, int desiredHeight)
+		internal static Asset<Texture2D> ResizeImage(Asset<Texture2D> texture2D, int desiredWidth, int desiredHeight)
 		{
+			texture2D.Wait();
 			RenderTarget2D renderTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, desiredWidth, desiredHeight);
 			Main.instance.GraphicsDevice.SetRenderTarget(renderTarget);
 			Main.instance.GraphicsDevice.Clear(Color.Transparent);
 			Main.spriteBatch.Begin();
 
 			float scale = 1;
-			if (texture2D.Width > desiredWidth || texture2D.Height > desiredHeight)
+			if (texture2D.Value.Width > desiredWidth || texture2D.Value.Height > desiredHeight)
 			{
-				if (texture2D.Height > texture2D.Width)
-					scale = (float)desiredWidth / texture2D.Height;
+				if (texture2D.Value.Height > texture2D.Value.Width)
+					scale = (float)desiredWidth / texture2D.Value.Height;
 				else
-					scale = (float)desiredWidth / texture2D.Width;
+					scale = (float)desiredWidth / texture2D.Value.Width;
 			}
 
 			//new Vector2(texture2D.Width / 2 * scale, texture2D.Height / 2 * scale) desiredWidth/2, desiredHeight/2
-			Main.spriteBatch.Draw(texture2D, new Vector2(desiredWidth / 2, desiredHeight / 2), null, Color.White, 0f, new Vector2(texture2D.Width / 2, texture2D.Height / 2), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(texture2D.Value, new Vector2(desiredWidth / 2, desiredHeight / 2), null, Color.White, 0f, new Vector2(texture2D.Value.Width / 2, texture2D.Value.Height / 2), scale, SpriteEffects.None, 0f);
 
 			Main.spriteBatch.End();
 			Main.instance.GraphicsDevice.SetRenderTarget(null);
@@ -105,7 +120,7 @@ namespace RecipeBrowser
 			renderTarget.GetData<Color>(content);
 			mergedTexture.SetData<Color>(content);
 
-			return mergedTexture;
+			return mergedTexture.ToAsset();
 		}
 
 		internal static Dictionary<int, Texture2D> tileTextures;

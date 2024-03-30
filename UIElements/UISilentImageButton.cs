@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -12,7 +13,7 @@ namespace RecipeBrowser.UIElements
 	class UIBadgedSilentImageButton : UISilentImageButton
 	{
 		internal bool drawX = false;
-		public UIBadgedSilentImageButton(Texture2D texture, string hoverText) : base(texture, hoverText) {
+		public UIBadgedSilentImageButton(Asset<Texture2D> texture, string hoverText) : base(texture, hoverText) {
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch) {
@@ -29,7 +30,7 @@ namespace RecipeBrowser.UIElements
 
 	class UISilentImageButton : UIElement
 	{
-		private Texture2D _texture;
+		private Asset<Texture2D> _texture;
 		private float _visibilityActive = 1f;
 		private float _visibilityHovered = .9f;
 		private float _visibilityInactive = 0.8f; // or color? same thing?
@@ -37,19 +38,19 @@ namespace RecipeBrowser.UIElements
 		public bool selected;
 		internal string hoverText;
 
-		public UISilentImageButton(Texture2D texture, string hoverText) {
+		public UISilentImageButton(Asset<Texture2D> texture, string hoverText) {
 			this._texture = texture;
-			this.Width.Set((float)this._texture.Width, 0f);
-			this.Height.Set((float)this._texture.Height, 0f);
+			this.Width.Set((float)this._texture.Value.Width, 0f);
+			this.Height.Set((float)this._texture.Value.Height, 0f);
 			this.hoverText = hoverText;
 
 			base.Recalculate();
 		}
 
-		public void SetImage(Texture2D texture) {
+		public void SetImage(Asset<Texture2D> texture) {
 			this._texture = texture;
-			this.Width.Set((float)this._texture.Width, 0f);
-			this.Height.Set((float)this._texture.Height, 0f);
+			this.Width.Set((float)this._texture.Value.Width, 0f);
+			this.Height.Set((float)this._texture.Value.Height, 0f);
 
 			base.Recalculate();
 		}
@@ -63,7 +64,7 @@ namespace RecipeBrowser.UIElements
 			}
 
 			CalculatedStyle dimensions = base.GetDimensions();
-			spriteBatch.Draw(this._texture, dimensions.Position(), Color.White * (selected ? _visibilityActive : (IsMouseHovering ? _visibilityHovered : this._visibilityInactive)));
+			spriteBatch.Draw(this._texture.Value, dimensions.Position(), Color.White * (selected ? _visibilityActive : (IsMouseHovering ? _visibilityHovered : this._visibilityInactive)));
 			if (IsMouseHovering) {
 				Main.hoverItemName = hoverText;
 			}
