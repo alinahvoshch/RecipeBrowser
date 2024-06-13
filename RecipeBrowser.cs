@@ -78,7 +78,7 @@ namespace RecipeBrowser
 			*/
 			ToggleRecipeBrowserHotKey = KeybindLoader.RegisterKeybind(this, "ToggleRecipeBrowser", "OemCloseBrackets");
 			QueryHoveredItemHotKey = KeybindLoader.RegisterKeybind(this, "QueryHoveredItem", "Mouse3");
-			ToggleFavoritedPanelHotKey = KeybindLoader.RegisterKeybind(this, "ToggleFavoritedRecipesWindow", "F3");
+			ToggleFavoritedPanelHotKey = KeybindLoader.RegisterKeybind(this, "ToggleFavoritedRecipesWindow", "F5");
 			/*
 				CheatSheetLoaded = false;
 			}
