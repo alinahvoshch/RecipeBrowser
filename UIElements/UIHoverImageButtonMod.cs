@@ -22,6 +22,12 @@ namespace RecipeBrowser
 			if (RecipeBrowserUI.modIndex != 0) {
 				CalculatedStyle dimensions = GetDimensions();
 				spriteBatch.Draw(textureColorable.Value, dimensions.Position(), Main.DiscoColor);
+
+				// Duplicate code here since we don't want to re-draw base texture.
+				if (IsMouseHovering) {
+					if (!string.IsNullOrWhiteSpace(hoverText))
+						Terraria.ModLoader.UI.UICommon.TooltipMouseText(hoverText);
+				}
 			}
 			else {
 				base.DrawSelf(spriteBatch);
