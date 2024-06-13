@@ -66,11 +66,14 @@ namespace RecipeBrowser.UIElements
 			CalculatedStyle dimensions = base.GetDimensions();
 			spriteBatch.Draw(this._texture.Value, dimensions.Position(), Color.White * (selected ? _visibilityActive : (IsMouseHovering ? _visibilityHovered : this._visibilityInactive)));
 			if (IsMouseHovering) {
-				Main.hoverItemName = hoverText;
+				// Main.hoverItemName = hoverText;
+				if (!string.IsNullOrWhiteSpace(hoverText))
+					Terraria.ModLoader.UI.UICommon.TooltipMouseText(hoverText);
 			}
 
 			if (this == SharedUI.instance.ObtainableFilter.button && IsMouseHovering) {
-				Main.hoverItemName = $"{RecipeBrowser.instance.concurrentTasks.Count} recipes remain to be calculated";
+				if(RecipeBrowser.instance.concurrentTasks.Count > 0)
+					Terraria.ModLoader.UI.UICommon.TooltipMouseText($"{hoverText}\n{RecipeBrowser.instance.concurrentTasks.Count} recipes remain to be calculated");
 				//spriteBatch.DrawString(FontAssets.MouseText.Value, UISystem.Instance.concurrentTasks.Count + "", dimensions.Position(), Color.White);
 			}
 		}

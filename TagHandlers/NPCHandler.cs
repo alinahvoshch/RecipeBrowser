@@ -34,11 +34,13 @@ namespace RecipeBrowser.TagHandlers
 				if (npcType >= Terraria.ID.NPCID.Count)
 				{
 					ModNPC modNPC = NPCLoader.GetNPC(npcType);
-					Main.hoverItemName = Lang.GetNPCNameValue(npcType) + (modNPC != null && ModContent.GetInstance<RecipeBrowserClientConfig>().ShowNPCModSource ? " [" + modNPC.Mod.DisplayName + "]" : "");
+					// Main.hoverItemName = Lang.GetNPCNameValue(npcType) + (modNPC != null && ModContent.GetInstance<RecipeBrowserClientConfig>().ShowNPCModSource ? " [" + modNPC.Mod.DisplayName + "]" : "");
+					Terraria.ModLoader.UI.UICommon.TooltipMouseText(Lang.GetNPCNameValue(npcType) + (modNPC != null && ModContent.GetInstance<RecipeBrowserClientConfig>().ShowNPCModSource ? " [" + modNPC.Mod.DisplayName + "]" : ""));
 				}
 				else
 				{
-					Main.hoverItemName = Lang.GetNPCNameValue(netID);
+					// Main.hoverItemName = Lang.GetNPCNameValue(netID);
+					Terraria.ModLoader.UI.UICommon.TooltipMouseText(Lang.GetNPCNameValue(netID));
 				}
 				//Main.HoverItem = this._item.Clone();
 				//Main.instance.MouseText(this._item.Name, this._item.rare, 0, -1, -1, -1, -1);

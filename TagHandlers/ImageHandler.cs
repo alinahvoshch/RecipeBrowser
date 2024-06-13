@@ -12,6 +12,7 @@ using System;
 using ReLogic.Content;
 using Terraria.ModLoader;
 using System.Globalization;
+using Terraria.ModLoader.UI;
 
 namespace RecipeBrowser.TagHandlers
 {
@@ -48,7 +49,8 @@ namespace RecipeBrowser.TagHandlers
 			{
 				if (!string.IsNullOrEmpty(tooltip))
 				{
-					Main.hoverItemName = tooltip;
+					// Main.hoverItemName = tooltip;
+					UICommon.TooltipMouseText(tooltip);
 				}
 			}
 

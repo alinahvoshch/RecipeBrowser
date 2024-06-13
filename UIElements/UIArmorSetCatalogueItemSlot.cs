@@ -185,7 +185,7 @@ namespace RecipeBrowser.UIElements
 
 			if (IsMouseHovering) {
 				//Main.HoverItem = item.Clone();
-				Main.hoverItemName = set.Item4 + "\nTotal Set Defense: " + set.Item5;
+				UICommon.TooltipMouseText(set.Item4 + "\nTotal Set Defense: " + set.Item5);
 
 				//Main.HoverItem.SetNameOverride(Main.HoverItem.Name + (Main.HoverItem.modItem != null && ModContent.GetInstance<RecipeBrowserClientConfig>().ShowItemModSource ? " [" + Main.HoverItem.modItem.mod.Name + "]" : ""));
 			}

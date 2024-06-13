@@ -103,7 +103,7 @@ namespace RecipeBrowser.UIElements
 
 			if (IsMouseHovering)
 			{
-				Main.hoverItemName = Utilities.GetTileName(tile);
+				Terraria.ModLoader.UI.UICommon.TooltipMouseText(Utilities.GetTileName(tile));
 			}
 		}
 	}
