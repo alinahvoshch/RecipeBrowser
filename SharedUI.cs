@@ -289,7 +289,7 @@ namespace RecipeBrowser
 			ItemID.Shuriken, ItemID.SlimeStaff, ItemID.BlandWhip, ItemID.DD2LightningAuraT1Popper, ItemID.SilverHelmet, ItemID.SilverChainmail, ItemID.SilverGreaves,
 			ItemID.BunnyHood, ItemID.HerosHat, ItemID.GoldHelmet, ItemID.Sign, ItemID.IronAnvil, ItemID.PearlstoneBrickWall, ItemID.EoCShield,
 			ItemID.ZephyrFish, ItemID.FairyBell, ItemID.MechanicalSkull, ItemID.SlimySaddle, ItemID.AmethystHook, ItemID.OrangeDye, ItemID.BiomeHairDye,
-			ItemID.FallenStarfish, ItemID.HermesBoots, ItemID.LeafWings, ItemID.Minecart, ItemID.HealingPotion, ItemID.ManaPotion, ItemID.RagePotion,
+			ItemID.FallenStarfish, ItemID.FishingBobber, ItemID.HermesBoots, ItemID.LeafWings, ItemID.Minecart, ItemID.HealingPotion, ItemID.ManaPotion, ItemID.RagePotion,
 			ItemID.AlphabetStatueA, ItemID.GoldChest, ItemID.PaintingMartiaLisa, ItemID.HeartStatue, ItemID.Wire, ItemID.PurificationPowder,
 			ItemID.Extractinator, ItemID.UnicornonaStick, ItemID.SilverHelmet, ItemID.BunnyHood, ItemID.ZephyrFish, ItemID.Sign, ItemID.FallenStarfish,
 			ItemID.HealingPotion, ItemID.OrangeDye, ItemID.Candelabra, ItemID.GrandfatherClock, ItemID.WoodenDoor, ItemID.WoodenChair, ItemID.PalmWoodTable, ItemID.ChineseLantern,
@@ -398,6 +398,7 @@ namespace RecipeBrowser
 			Asset<Texture2D> smallDyes = ResizeImage(TextureAssets.Item[ItemID.OrangeDye], 24, 24);
 			Asset<Texture2D> smallHairDye = ResizeImage(TextureAssets.Item[ItemID.BiomeHairDye], 24, 24);
 			Asset<Texture2D> smallQuestFish = ResizeImage(TextureAssets.Item[ItemID.FallenStarfish], 24, 24);
+			Asset<Texture2D> smallFishingBobber = ResizeImage(TextureAssets.Item[ItemID.FishingBobber], 24, 24);
 			Asset<Texture2D> smallAccessories = ResizeImage(TextureAssets.Item[ItemID.HermesBoots], 24, 24);
 			Asset<Texture2D> smallWings = ResizeImage(TextureAssets.Item[ItemID.LeafWings], 24, 24);
 			Asset<Texture2D> smallCarts = ResizeImage(TextureAssets.Item[ItemID.Minecart], 24, 24);
@@ -596,6 +597,7 @@ namespace RecipeBrowser
 					subCategories = new List<Category>() {
 						new Category("Poles", x=>x.fishingPole > 0, "Images/sortFish") {sorts = new List<Sort>() { new Sort("Pole Power", "Images/sortFish", (x,y)=>x.fishingPole.CompareTo(y.fishingPole)), } },
 						new Category("Bait", x=>x.bait>0, "Images/sortBait") {sorts = new List<Sort>() { new Sort("Bait Power", "Images/sortBait", (x,y)=>x.bait.CompareTo(y.bait)), } },
+						new Category("Bobbers", x=>x.type >= ItemID.FishingBobber && x.type <= ItemID.FishingBobberGlowingRainbow, smallFishingBobber),
 						new Category("Quest Fish", x=>x.questItem, smallQuestFish),
 					}
 				},
