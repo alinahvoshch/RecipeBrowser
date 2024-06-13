@@ -178,7 +178,7 @@ namespace RecipeBrowser
 							Tile tile = Main.tile[0, 0];
 							tile.HasTile = true;
 							tile.TileType = (ushort)testItem.createTile;
-							for (int pickPower = 5; i < 300; pickPower += 5) {
+							for (int pickPower = 5; pickPower < 300; pickPower += 5) {
 								int hitBufferIndex = Main.LocalPlayer.hitTile.HitObject(0, 0, 1);
 								// private int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget)
 								int pickDamage = (int)GetPickaxeDamageMethodInfo.Invoke(Main.LocalPlayer, new object[] { 0, 0, pickPower, hitBufferIndex, tile });
