@@ -122,6 +122,7 @@ namespace RecipeBrowser
 				if (rectangle.Contains(Main.MouseScreen.ToPoint()) && Terraria.UI.Chat.ChatManager.GetStringSize(FontAssets.MouseText.Value, sbTiles.ToString(), Vector2.One).X > 180)
 				{
 					Terraria.ModLoader.UI.UICommon.TooltipMouseText(sb.ToString());
+					// TODO: Issue #79, make multiline?: Terraria.ModLoader.UI.UICommon.TooltipMouseText(string.Join('\n', sb.ToString().Split(',')));
 					/* Different approach to informing recipe mod source
 					ModRecipe modRecipe = selectedRecipe as ModRecipe;
 					if (Terraria.UI.Chat.ChatManager.GetStringSize(FontAssets.MouseText.Value, sbTiles.ToString(), Vector2.One).X > 180)
