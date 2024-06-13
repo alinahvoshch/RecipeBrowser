@@ -75,7 +75,7 @@ namespace RecipeBrowser
 		// For now, reset on enter world. Could remember later if needed.
 		internal static bool[] seenTiles;
 		private bool[] _seenTiles;
-		internal List<TileDefinition> unloadedSeenTiles;
+		private List<TileDefinition> unloadedSeenTiles;
 		// TODO: Remember hitNPCs? Implement just like seenTiles and reset each session?
 
 		public override void Initialize()
