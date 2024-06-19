@@ -288,7 +288,7 @@ namespace RecipeBrowser
 		{
 			ItemID.MetalDetector, ItemID.SpellTome, ItemID.IronAnvil, ItemID.MythrilAnvil, ItemID.Blindfold, ItemID.GoldBroadsword, ItemID.GoldenShower, ItemID.FlintlockPistol,
 			ItemID.Shuriken, ItemID.SlimeStaff, ItemID.BlandWhip, ItemID.DD2LightningAuraT1Popper, ItemID.SilverHelmet, ItemID.SilverChainmail, ItemID.SilverGreaves,
-			ItemID.BunnyHood, ItemID.HerosHat, ItemID.GoldHelmet, ItemID.Sign, ItemID.IronAnvil, ItemID.PearlstoneBrickWall, ItemID.EoCShield,
+			ItemID.BunnyHood, ItemID.HerosHat, ItemID.GoldHelmet, ItemID.Sign, ItemID.IronAnvil, ItemID.PearlstoneBrickWall, ItemID.EoCShield, ItemID.KingSlimeMasterTrophy,
 			ItemID.ZephyrFish, ItemID.FairyBell, ItemID.MechanicalSkull, ItemID.SlimySaddle, ItemID.AmethystHook, ItemID.OrangeDye, ItemID.BiomeHairDye,
 			ItemID.FallenStarfish, ItemID.FishingBobber, ItemID.HermesBoots, ItemID.LeafWings, ItemID.Minecart, ItemID.HealingPotion, ItemID.ManaPotion, ItemID.RagePotion,
 			ItemID.AlphabetStatueA, ItemID.GoldChest, ItemID.PaintingMartiaLisa, ItemID.HeartStatue, ItemID.Wire, ItemID.PurificationPowder,
@@ -398,6 +398,7 @@ namespace RecipeBrowser
 			Asset<Texture2D> smallCraftingStation = ResizeImage(TextureAssets.Item[ItemID.IronAnvil], 24, 24);
 			Asset<Texture2D> smallWalls = ResizeImage(TextureAssets.Item[ItemID.PearlstoneBrickWall], 24, 24);
 			Asset<Texture2D> smallExpert = ResizeImage(TextureAssets.Item[ItemID.EoCShield], 24, 24);
+			Asset<Texture2D> smallMaster = ResizeImage(TextureAssets.Item[ItemID.KingSlimeMasterTrophy], 24, 24);
 			Asset<Texture2D> smallPets = ResizeImage(TextureAssets.Item[ItemID.ZephyrFish], 24, 24);
 			Asset<Texture2D> smallLightPets = ResizeImage(TextureAssets.Item[ItemID.FairyBell], 24, 24);
 			Asset<Texture2D> smallBossSummon = ResizeImage(TextureAssets.Item[ItemID.MechanicalSkull], 24, 24);
@@ -553,6 +554,7 @@ namespace RecipeBrowser
 					}
 				},
 				new Category("Expert", x=>x.expert, smallExpert),
+				new Category("Master", x=>x.master, smallMaster),
 				new Category("Pets"/*, x=> x.buffType > 0 && (Main.vanityPet[x.buffType] || Main.lightPet[x.buffType])*/, x=>false, smallPetsLightPets){
 					subCategories = new List<Category>() {
 						new Category("Pets", x=>Main.vanityPet[x.buffType], smallPets),
