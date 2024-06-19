@@ -181,6 +181,8 @@ namespace RecipeBrowser.UIElements
 				spriteBatch.Draw(TextureAssets.Wire3.Value, vector2 + new Vector2(10f, 10f) * scale, new Rectangle(4, 58, 8, 8), Color.White, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
 			if (RecipeBrowserUI.instance.foundItems != null && !RecipeBrowserUI.instance.foundItems[item.type])
 				spriteBatch.Draw(TextureAssets.Wire4.Value, vector2 + new Vector2(10f, 40f) * scale, new Rectangle(4, 58, 8, 8), Color.White, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
+			if (Main.GameModeInfo.IsJourneyMode && RecipePath.ItemFullyResearched(item.type))
+				spriteBatch.Draw(TextureAssets.Wire.Value, vector2 + new Vector2(40f, 40f) * scale, new Rectangle(4, 58, 8, 8), Color.White, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
 		}
 	}
 

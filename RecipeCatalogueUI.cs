@@ -62,6 +62,7 @@ namespace RecipeBrowser
 		internal UIRadioButton NearbyIngredientsRadioBitton;
 		internal UIRadioButton ItemChecklistRadioButton;
 		internal UIRadioButtonGroup RadioButtonGroup;
+		internal UIJourneyDuplicateButton duplicationButton;
 
 		internal int selectedIndex = -1;
 		internal int hoveredIndex = -1;
@@ -794,6 +795,16 @@ namespace RecipeBrowser
 			//	}
 			//}
 
+			if (duplicationButton != null)
+				mainPanel.RemoveChild(duplicationButton);
+			duplicationButton = null;
+
+			if (Main.GameModeInfo.IsJourneyMode && RecipePath.ItemFullyResearched(recipe.createItem.type)) {
+				duplicationButton = new UIJourneyDuplicateButton(new CraftPath.JourneyDuplicateItemNode(recipe.createItem.type, recipe.createItem.maxStack, 0, null, null));
+				duplicationButton.Top.Set(-18, 1f);
+				duplicationButton.Left.Set(-36, 1f);
+				mainPanel.Append(duplicationButton);
+			}
 		}
 
 		public static void OverrideForGroups(Recipe recipe, Item item)

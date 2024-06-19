@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using RecipeBrowser.UIElements;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.UI.Elements;
-using Terraria.GameContent.UI.States;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -42,6 +40,7 @@ namespace RecipeBrowser
 		internal UICheckbox CraftedRadioButton;
 		internal UICheckbox LootRadioButton;
 		internal UICheckbox UnobtainedRadioButton;
+		internal UIJourneyDuplicateButton duplicationButton;
 		// TODO: Purchaseable checkbox.
 
 		public ItemCatalogueUI()
@@ -322,6 +321,17 @@ namespace RecipeBrowser
 				item.selected = false;
 			}
 			slot.selected = true;
+
+			if(duplicationButton != null)
+				mainPanel.RemoveChild(duplicationButton);
+			duplicationButton = null;
+
+			if (Main.GameModeInfo.IsJourneyMode && RecipePath.ItemFullyResearched(slot.itemType)) {
+				duplicationButton = new UIJourneyDuplicateButton(new CraftPath.JourneyDuplicateItemNode(slot.itemType, slot.item.maxStack, 0, null, null));
+				duplicationButton.Top.Set(-18, 1f);
+				duplicationButton.Left.Set(2, 0f);
+				mainPanel.Append(duplicationButton);
+			}
 		}
 
 		private bool PassItemFilters(UIItemCatalogueItemSlot slot)
