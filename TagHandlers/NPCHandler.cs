@@ -45,7 +45,8 @@ namespace RecipeBrowser.TagHandlers
 				//Main.HoverItem = this._item.Clone();
 				//Main.instance.MouseText(this._item.Name, this._item.rare, 0, -1, -1, -1, -1);
 
-				RecipeBrowserUI.instance.npcArrow = NPC.FindFirstNPC(npcType);
+				if(head)
+					RecipeBrowserUI.instance.npcArrow = NPC.FindFirstNPC(npcType);
 			}
 
 			public override void OnClick() {
