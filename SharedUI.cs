@@ -714,6 +714,8 @@ namespace RecipeBrowser
 		private bool BelongsInOther(Item item) {
 			var cats = categories.Skip(1).Take(categories.Count - 2);
 			foreach (var category in cats) {
+				if(category.name == ArmorSetFeatureHelper.ArmorSetsHoverTest)
+					continue;
 				if (category.BelongsRecursive(item))
 					return false;
 			}
