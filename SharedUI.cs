@@ -334,7 +334,7 @@ namespace RecipeBrowser
 				(ObtainableFilter = new Filter("Extended Craftable (RMB on Recipe to view, Auto-disables to prevent lag)", x=>true, extendedCraftIcon)),
 				(DisabledFilter = new Filter("Show recipes disabled by Mods", x=>true, disabledIcon)),
 				(UnresearchedFilter = new Filter("Unresearched", x=>{
-					return !RecipePath.ItemFullyResearched(x.type);
+					return Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId.ContainsKey(x.type) && !RecipePath.ItemFullyResearched(x.type);
 				}, unresearchedIcon)),
 			};
 
