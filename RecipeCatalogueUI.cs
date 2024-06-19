@@ -500,8 +500,11 @@ namespace RecipeBrowser
 				return 1;
 			UIRecipeSlot a = x as UIRecipeSlot;
 			UIRecipeSlot b = y as UIRecipeSlot;
-			if (a.CompareToIgnoreIndex(b) == 0 && SharedUI.instance.SelectedSort != null)
+			if (a.CompareToIgnoreIndex(b) == 0 && SharedUI.instance.SelectedSort != null) {
+				if(SharedUI.instance.SelectedSort.recipeSort != null)
+					return SharedUI.instance.SelectedSort.recipeSort(Main.recipe[a.index], Main.recipe[b.index]);
 				return SharedUI.instance.SelectedSort.sort(a.item, b.item);
+			}
 			return a.CompareTo(b);
 		}
 

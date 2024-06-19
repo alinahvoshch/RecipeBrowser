@@ -103,6 +103,7 @@ namespace RecipeBrowser
 		internal List<Filter> availableFilters;
 		private void PopulateSortsAndFiltersPanel() {
 			var availableSorts = new List<Sort>(sorts);
+			availableSorts.RemoveAll(x => !x.sortAvailable?.Invoke() ?? false);
 			availableFilters = new List<Filter>(filters);
 
 			if (!Main.GameModeInfo.IsJourneyMode)
@@ -301,17 +302,24 @@ namespace RecipeBrowser
 			foreach (int type in itemTexturePreload)
 				Main.instance.LoadItem(type); // needs ImmediateLoad. Could do this setup in Load if determined to be slow.
 
-			//Texture2D terrariaSort = ResizeImage(Main.inventorySortTexture[1], 24, 24);
+			Asset<Texture2D> creativeSort = ResizeImage(TextureAssets.InventorySort[0], 24, 24);
+			Asset<Texture2D> recipeOrderSort = ResizeImage(TextureAssets.CraftToggle[2], 24, 24);
 			Asset<Texture2D> rarity = ResizeImage(TextureAssets.Item[ItemID.MetalDetector], 24, 24);
 
 			// TODO: Implement Badge text as used in Item Checklist.
 			sorts = new List<Sort>()
 			{
+				new Sort("Recipe Order", recipeOrderSort, (x, y) => 0) {
+					recipeSort = (x, y) => x.RecipeIndex.CompareTo(y.RecipeIndex),
+					sortAvailable = () => RecipeBrowserUI.instance.CurrentPanel == RecipeBrowserUI.RecipeCatalogue,
+				},
+				new Sort("Creative Sort", creativeSort, ByCreativeSortingId) {
+					sortAvailable = () => RecipeBrowserUI.instance.CurrentPanel == RecipeBrowserUI.ItemCatalogue,
+				},
 				new Sort("ItemID", "Images/sortItemID", (x,y)=>x.type.CompareTo(y.type)),
 				new Sort("Value", "Images/sortValue", (x,y)=>x.value.CompareTo(y.value)),
 				new Sort("Alphabetical", "Images/sortAZ", (x,y)=>x.Name.CompareTo(y.Name)),
 				new Sort("Rarity", rarity, (x,y)=> x.rare==y.rare ? x.value.CompareTo(y.value) : Math.Abs(x.rare).CompareTo(Math.Abs(y.rare))),
-				//new Sort("Terraria Sort", terrariaSort, (x,y)=> -ItemChecklistUI.vanillaIDsInSortOrder[x.type].CompareTo(ItemChecklistUI.vanillaIDsInSortOrder[y.type]), x=>ItemChecklistUI.vanillaIDsInSortOrder[x.type].ToString()),
 			};
 
 			Asset<Texture2D> materialsIcon = Utilities.StackResizeImage(new[] { TextureAssets.Item[ItemID.SpellTome] }, 24, 24);
@@ -633,6 +641,20 @@ namespace RecipeBrowser
 			SelectedCategory = categories[0];
 		}
 
+		private int ByCreativeSortingId(Item x, Item y) {
+			ContentSamples.CreativeHelper.ItemGroupAndOrderInGroup itemGroupAndOrderInGroup = ContentSamples.ItemCreativeSortingId[x.type];
+			ContentSamples.CreativeHelper.ItemGroupAndOrderInGroup itemGroupAndOrderInGroup2 = ContentSamples.ItemCreativeSortingId[y.type];
+			int num = itemGroupAndOrderInGroup.Group.CompareTo(itemGroupAndOrderInGroup2.Group);
+			if (num == 0)
+				num = itemGroupAndOrderInGroup.OrderInGroup.CompareTo(itemGroupAndOrderInGroup2.OrderInGroup);
+
+			// Fallback to alphabetical for ties.
+			if (num == 0)
+				num = x.Name.CompareTo(y.Name);
+
+			return num;
+		}
+
 		// TODO: Update with new 1.4 values.
 		Dictionary<int, float> vanillaGrappleRanges = new Dictionary<int, float>() {
 			[13] = 300f,
@@ -847,6 +869,8 @@ namespace RecipeBrowser
 	internal class Sort
 	{
 		internal Func<Item, Item, int> sort;
+		internal Func<Recipe, Recipe, int> recipeSort;
+		internal Func<bool> sortAvailable;
 		internal UISilentImageButton button;
 
 		public Sort(string hoverText, Asset<Texture2D> texture, Func<Item, Item, int> sort) {
