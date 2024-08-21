@@ -621,17 +621,40 @@ namespace RecipeBrowser
 					categories.Insert(categories.Count - 2, new Category(modCategory.name, modCategory.belongs, modCategory.icon));
 				}
 				else {
+					bool placed = false;
 					foreach (var item in categories) {
 						if (item.name == modCategory.parent) {
 							item.subCategories.Add(new Category(modCategory.name, modCategory.belongs, modCategory.icon));
+							placed = true;
 						}
 					}
+					if (!placed)
+						RecipeBrowser.instance.Logger.Warn($"Parent '{modCategory.parent}' for '{modCategory.name}' category not found. The category will not show up in-game");
 				}
 			}
 
 			// Filter per mod instead of Mod filter? Expanding filter button?
-			foreach (var modCategory in RecipeBrowser.instance.modFilters) {
-				filters.Add(new Filter(modCategory.name, modCategory.belongs, modCategory.icon));
+			foreach (var modFilter in RecipeBrowser.instance.modFilters) {
+				if (string.IsNullOrEmpty(modFilter.parent)) {
+					filters.Add(new Filter(modFilter.name, modFilter.belongs, modFilter.icon));
+				}
+				else {
+					bool placed = false;
+					foreach (var item in categories) {
+						if (item.name == modFilter.parent) {
+							item.filters.Add(new Filter(modFilter.name, modFilter.belongs, modFilter.icon));
+							placed = true;
+						}
+						foreach (var subCategory in item.subCategories) {
+							if (subCategory.name == modFilter.parent) {
+								subCategory.filters.Add(new Filter(modFilter.name, modFilter.belongs, modFilter.icon));
+								placed = true;
+							}
+						}
+					}
+					if (!placed)
+						RecipeBrowser.instance.Logger.Warn($"Parent '{modFilter.parent}' for '{modFilter.name}' filter not found. The filter will not show up in-game");
+				}
 			}
 
 			foreach (var parent in categories) {
