@@ -70,8 +70,8 @@ namespace RecipeBrowser.UIElements
 					}
 					drawScale *= scale;
 					Vector2 vector = backgroundTexture.Size() * scale;
-					Vector2 position2 = dimensions.Position() + vector / 2f - rectangle2.Size() * drawScale / 2f;
-					Vector2 origin = rectangle2.Size() * (pulseScale / 2f - 0.5f);
+					Vector2 position2 = dimensions.Position() + vector / 2f;
+					Vector2 origin = rectangle2.Size() / 2;
 					//Vector2 drawPosition = dimensions.Position();
 					//drawPosition.X += defaultBackgroundTexture.Width * scale / 2f - (float)width * drawScale / 2f;
 					//drawPosition.Y += defaultBackgroundTexture.Height * scale / 2f - (float)height * drawScale / 2f;
