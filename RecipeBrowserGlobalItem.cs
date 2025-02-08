@@ -9,8 +9,10 @@ namespace RecipeBrowser
 {
 	internal class RecipeBrowserGlobalItem : GlobalItem
 	{
+        internal static string RBText(string key, string category = "RecipeBrowserUI") => RecipeBrowser.RBText(category, key);
+        
 		// OnPickup only called on LocalPlayer: I think
-		public override void OnCreated(Item item, ItemCreationContext context)
+        public override void OnCreated(Item item, ItemCreationContext context)
 		{
 			ItemReceived(item);
 		}
@@ -108,7 +110,7 @@ namespace RecipeBrowser
 			var selectedModRecipe = Main.recipe[RecipeCatalogueUI.instance.hoveredIndex];
 			if (selectedModRecipe.Mod != null && ModContent.GetInstance<RecipeBrowserClientConfig>().ShowRecipeModSource && item.type == selectedModRecipe.createItem.type)
 			{
-				var line = new TooltipLine(Mod, "RecipeBrowser:RecipeOriginHint", "Recipe added by " + selectedModRecipe.Mod.DisplayName)
+				var line = new TooltipLine(Mod, "RecipeBrowser:RecipeOriginHint", RBText("RecipeAddedBy") + " " + selectedModRecipe.Mod.DisplayName)
 				{
 					OverrideColor = Color.Goldenrod
 				};

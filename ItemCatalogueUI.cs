@@ -473,7 +473,7 @@ namespace RecipeBrowser
 			ToggleItemDropViewer(list.Any());
 
 			int expectedValue = 0;
-			var expectedValueText = new UIText("Expected Value: ?"); // Move above the grid maybe?
+			var expectedValueText = new UIText(RBText("ExpectedValueUnknown")); // Move above the grid maybe?
 			expectedValueText.SetPadding(6);
 			itemDropViewerGrid.Add(expectedValueText);
 
@@ -497,7 +497,7 @@ namespace RecipeBrowser
 			}
 			if (expectedValue > 1000000)
 				expectedValue = expectedValue - expectedValue % 100; // only room for 3, so get rid of copper coins if platinum.
-			expectedValueText.SetText("Expected Value: " + CraftPath.BuyItemNode.GetTotalCostAsTags(expectedValue));
+			expectedValueText.SetText(RBText("ExpectedValue") + " "+ CraftPath.BuyItemNode.GetTotalCostAsTags(expectedValue));
 		}
 	}
 

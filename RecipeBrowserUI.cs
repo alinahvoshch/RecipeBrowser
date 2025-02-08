@@ -506,7 +506,7 @@ namespace RecipeBrowser
 				favoritePanel.AddDragTarget(s);
 			}
 			if(height == 0) {
-				UIText text = new UIText("No favorited recipes");
+				UIText text = new UIText(RBText("NoFavoritedRecipes"));
 				list.Add(text);
 				var a = text.GetInnerDimensions();
 				text.Recalculate();

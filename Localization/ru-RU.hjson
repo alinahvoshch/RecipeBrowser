@@ -1,4 +1,4 @@
-Mods: {
+﻿Mods: {
 	RecipeBrowser: {
 		RecipeBrowserUI: {
 			Recipes: Рецепты
@@ -9,6 +9,8 @@ Mods: {
 			Close: Закрыть
 			All: все
 			ModFilter: Фильтр модов
+			NoFavoritedRecipes: Нет избранных рецептов
+			RecipeAddedBy: Рецепт из:
 		}
 
 		Common: {
@@ -27,12 +29,154 @@ Mods: {
 			Tile: Ст.
 			AllRecipes: Все рецепты
 			NearbyChests: Инвентарь и ближайшие хранилища
-			ClickToRefresh: Кликните, чтобы обновить
+			ClickToRefresh: Нажмите, чтобы обновить
 			ItemChecklistOnly: Только из Item Checklist
 			OnlyNewItemsMadeFromSeenItems: Только новые предметы, которые можно создать из уже полученных
 			EmptyQuerySlotHint: Поместите предмет сюда
 			ShowInheritedRecipes: Показывать унаследованные рецепты станции
 			ShowUniqueRecipes: Показывать уникальные рецепты станции
+		}
+
+		RecipeCatalogueFiltres: {
+			RecipeOrder: Как в меню рецептов
+			CreativeSort: Как в меню дублирования
+			ItemID: Сортировать по ID
+			Value: Сортировать по цене
+			Alphabetical: Сортировать по алфавиту
+			Rarity: Сортировать по редкости
+			Materials: Показать только являющиеся материалами
+			Craftable: Показать предметы, можно создать сейчас
+			ExtendedCraftable:
+				'''
+				Показать доступные для создания
+				(нажмите ПКМ по предмету, чтобы посмотреть рецепт в меню создания)
+				'''
+			DisabledRecipes: Показывать рецепты, удалённые модами
+			Unresearched: Показать только неиследованные предметы
+			All: Все предметы
+
+			Weapons: {
+				Name: Оружие
+				Melee: Оружие ближнего боя
+				Yoyo: Йо-йо
+				Magic: Магическое оружие
+				Ranged: Стрелковое оружие
+				UseAmmoType: По типу боеприпасов
+				Throwing: Метательное оружие
+				Summon: Оружие призывателя
+				Whip: Хлысты
+				Sentry: Оружие, призывающее стражей
+				CycleUsedAmmoTypes: Переключение используемого типа боеприпасов
+			}
+
+			Damage: По урону
+
+			Tools: {
+				Name: Инструменты
+				Head: Кирки
+				PickPower: Сортировать по мощности кирки
+				Body: Топоры
+				AxePower: Сортировать по мощности топора
+				Legs: Молоты
+				HammerPower: Сортировать по мощности молота
+			}
+
+			Armor: {
+				Name: Броня и одежда
+				Head: Голова
+				Body: Туловище
+				Legs: Ноги
+				Defense: Сортировать по защите
+				Vanity: Одежда
+				ArmorOnly: Броня
+				TotalDefense: Сортировать по общей защите
+			}
+
+			Tiles: {
+				Name: Размещаемое
+				CraftingStations: Странции для создания
+				Containers: Хранилища
+				Wiring: Проводка
+				Statues: Статуи
+				Doors: Считаются за двери
+				Chairs: Считаются за сулья
+				Tables: Считаются за столы
+				LightSources: Источники света
+				Torches: Факелы
+				PlaceTile: Сортировать по способу размещения
+			}
+
+			Walls: Стены
+			Accessories: Аксессуары
+			Wings: Крылья
+
+			Ammo: {
+				Name: Боеприпасы
+				AmmoType: Сортировать по типу боеприпаса
+				CycleAmmoTypes: Переключение типов боеприпасов
+			}
+
+			Potions: {
+				Name: Еда и зелья
+				HealthPotions: Лечебные зелья
+				HealLife: Сортировать по восстанавливаемому здоровью
+				ManaPotions: Зелья маны
+				HealMana: Сортировать по восстанавливаемой мане
+				BuffPotions: Зелья усилений
+				Food: Еда и напитки
+			}
+
+			Expert: Предметы режима Эксперта
+			Master: Предметы режима Мастера
+
+			Pets: {
+				Name: Питомцы
+				CommonPets: Обычные питомцы
+				LightPets: Освещающие питомцы
+			}
+
+			Mounts: Ездовые питомцы и вагонетки
+			Carts: Вагонетки
+			Hooks: Крюки
+			GrappleRange: Сортировать по дальности захвата
+
+			Dyes: {
+				Name: Красители и краски для волос
+				CommonDyes: Красители
+				HairDyes: Краски для волос
+			}
+
+			BossSummons: {
+				Name: Предметы, призывающие боссов
+				ProgressionOrder: Сортировать по порядку прогресии
+			}
+
+			Consumables: {
+				Name: Расходуемое
+				CapturedNPC: Предметы, призывающие существ
+			}
+
+			GrabBags: {
+				Name: Предметы с содержимым
+				FishingCrate: Пре-хардмодные ящики
+				FishingCrateHardmode: Хардмодные ящики
+				BossBag: Пре-хардмодные мешки с сокровищами
+				BossBagHardmode: Хардмодные мешки с сокровищами
+				ExpectedValue: Сортировать по приблиз. стоимости содержимого
+			}
+
+			Fishing: {
+				Name: Рыбалка
+				Poles: Удочки
+				PolePower: Сортировать по мощности удочки
+				Bait: Наживка
+				BaitPower: Сортировать по мощности наживки
+				Bobbers: Поплавки
+				QuestFish: Рыба заданий
+			}
+
+			Extractinator: Используемые промывателем
+			Other: Другие
 		}
 
 		FavoritedUI: {
@@ -84,6 +228,25 @@ Mods: {
 			Unobtained: Неполуч.
 			OnlyUnobtainedItems: Показывать только ранее не полученные предметы
 			BottomInstructions: Двойное ЛКМ: показать рецепты  --  Двойное ПКМ: показать, с кого выпадает
+			ExpectedValue: Стоимость ≈
+			ExpectedValueUnknown: Стоимость ≈ ?
+		}
+
+		UIArmorSetCatalogue: {
+			TotalSetDefense: Общая защита комплекта: {0} ед.
+			ArmorSets:
+				'''
+				Комплекты брони
+				(Предупреждение: на загрузку может потребоваться несколько секунд)
+				'''
+			ShowItems: Предметы
+			ShowItemsTooltip: Отображает элементы брони, входящие в комплект, отдельно под ним
+			UseDye: Красители
+			UseDyeTooltip: Показывает комплекты брони с использующимися на вас сейчас красителями
+			Animate: Анимация
+			AnimateTooltip: Имитация анимации движений игрока
+			Accessories: Аксессуары
+			AccessoriesTooltip: Показывает комплекты брони с видимыми на вас сейчас аксессуарами
 		}
 
 		BestiaryUI: {
@@ -104,6 +267,7 @@ Mods: {
 			NewLoot: Новая добыча
 			ShowOnlyNPCWithNeverBeforeSeenLoot: Показывать только тех существ, с которых выпадают не полученные ранее предметы
 			EmptyQuerySlotHint: Поместите предмет сюда
+			NPCDrops: Предметы, выпадающие с существа «{0}»:
 		}
 
 		HelpUI: {
@@ -178,7 +342,7 @@ Mods: {
 
 		Keybinds: {
 			ToggleRecipeBrowser.DisplayName: Открыть браузер рецептов
-			QueryHoveredItem.DisplayName: Поместить предмет под курсором в ячейку
+			QueryHoveredItem.DisplayName: Посмотреть информацию о предмете
 			ToggleFavoritedRecipesWindow.DisplayName: Вкл./Выкл. окно с избранными рецептами
 		}
 
