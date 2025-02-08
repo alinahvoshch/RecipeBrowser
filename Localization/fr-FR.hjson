@@ -9,6 +9,8 @@ Mods: {
 			Close: Fermer
 			All: Voir tout
 			ModFilter: Filtre par modules
+			// NoFavoritedRecipes: No favorited recipes
+			// RecipeAddedBy: Recipe added by
 		}
 
 		Common: {
@@ -33,6 +35,144 @@ Mods: {
 			EmptyQuerySlotHint: Placer un objet ici
 			ShowInheritedRecipes: Afficher les recettes héritées
 			ShowUniqueRecipes: Afficher des recettes uniques
+		}
+
+		RecipeCatalogueFiltres: {
+			// RecipeOrder: Recipe Order
+			// CreativeSort: Creative Sort
+			// ItemID: Item ID
+			// Value: Value
+			// Alphabetical: Alphabetical
+			// Rarity: Rarity
+			// Materials: Materials
+			// Craftable: Craftable
+			// ExtendedCraftable: Extended Craftable (RMB on Recipe to view, Auto-disables to prevent lag)
+			// DisabledRecipes: Show recipes disabled by Mods
+			// Unresearched: Unresearched
+			// All: All
+
+			Weapons: {
+				// Name: Weapons
+				// Melee: Melee
+				// Yoyo: Yoyo
+				// Magic: Magic
+				// Ranged: Ranged
+				// UseAmmoType: Use Ammo Type
+				// Throwing: Throwing
+				// Summon: Summon
+				// Whip: Whip
+				// Sentry: Sentry
+				// CycleUsedAmmoTypes: Cycle Used Ammo Types
+			}
+
+			// Damage: Damage
+
+			Tools: {
+				// Name: Tools
+				// Head: Pickaxes
+				// PickPower: Pick Power
+				// Body: Axes
+				// AxePower: Axe Power
+				// Legs: Hammers
+				// HammerPower: Hammer Power
+			}
+
+			Armor: {
+				// Name: Armor and Vanity
+				// Head: Head
+				// Body: Body
+				// Legs: Legs
+				// Defense: Defense
+				// Vanity: Vanity
+				// ArmorOnly: Armor
+				// TotalDefense: Total Defense
+			}
+
+			Tiles: {
+				// Name: Tiles
+				// CraftingStations: Crafting Stations
+				// Containers: Containers
+				// Wiring: Wiring
+				// Statues: Statues
+				// Doors: Doors
+				// Chairs: Chairs
+				// Tables: Tables
+				// LightSources: Light Sources
+				// Torches: Torches
+				// PlaceTile: Place Tile
+			}
+
+			// Walls: Walls
+			// Accessories: Accessories
+			// Wings: Wings
+
+			Ammo: {
+				// Name: Ammo
+				// AmmoType: Ammo Type
+				// CycleAmmoTypes: Cycle Ammo Types
+			}
+
+			Potions: {
+				// Name: Potions and food
+				// HealthPotions: Health Potions
+				// HealLife: Heal Life
+				// ManaPotions: Mana Potions
+				// HealMana: Heal Mana
+				// BuffPotions: Buff Potions
+				// Food: Food
+			}
+
+			// Expert: Expert
+			// Master: Master
+
+			Pets: {
+				// Name: Pets
+				// CommonPets: Pets
+				// LightPets: Light Pets
+			}
+
+			// Mounts: Mounts
+			// Carts: Carts
+			// Hooks: Hooks
+			// GrappleRange: Grapple Range
+
+			Dyes: {
+				// Name: Dyes
+				// CommonDyes: Dyes
+				// HairDyes: Hair Dyes
+			}
+
+			BossSummons: {
+				// Name: Boss Summons
+				// ProgressionOrder: Progression Order
+			}
+
+			Consumables: {
+				// Name: Consumables
+				// CapturedNPC: Captured NPC
+			}
+
+			GrabBags: {
+				// Name: Grab Bags
+				// FishingCrate: Fishing Crate (Pre-Hardmode)
+				// FishingCrateHardmode: Fishing Crate (Hardmode)
+				// BossBag: Boss Bag (Pre-Hardmode)
+				// BossBagHardmode: Boss Bag (Hardmode)
+				// ExpectedValue: Expected Value
+			}
+
+			Fishing: {
+				// Name: Fishing
+				// Poles: Poles
+				// PolePower: Pole Power
+				// Bait: Bait
+				// BaitPower: Bait Power
+				// Bobbers: Bobbers
+				// QuestFish: Quest Fish
+			}
+
+			// Extractinator: Extractinator
+			// Other: Other
 		}
 
 		FavoritedUI: {
@@ -92,6 +232,25 @@ Mods: {
 			Unobtained: Non obtenu
 			OnlyUnobtainedItems: Afficher uniquement les objets non obtenus
 			BottomInstructions: 2x LMB: Voir les Recettes  ---  2x RMB: Voir les Ennemis à Butin
+			// ExpectedValue: Expected Value:
+			// ExpectedValueUnknown: Expected Value: ?
+		}
+
+		UIArmorSetCatalogue: {
+			// TotalSetDefense: Total Set Defense: {0}
+			/* ArmorSets:
+				'''
+				Armor Sets
+				(Warning: May take many seconds to calculate)
+				''' */
+			// ShowItems: Show Items
+			// ShowItemsTooltip: Display the items that make up the set
+			// UseDye: Use Dye
+			// UseDyeTooltip: Draw armor sets with currently equipped dye
+			// Animate: Animate
+			// AnimateTooltip: Mimic player animation
+			// Accessories: Accessories
+			// AccessoriesTooltip: Visualize with current accessories
 		}
 
 		BestiaryUI: {
@@ -112,6 +271,7 @@ Mods: {
 			NewLoot: Nouveau Butin
 			ShowOnlyNPCWithNeverBeforeSeenLoot: Afficher uniquement les PNJ qui lâchent des objets qui n'ont jamais été obtenus
 			EmptyQuerySlotHint: Placer un objet ici
+			// NPCDrops: "{0} drops:"
 		}
 
 		HelpUI: {

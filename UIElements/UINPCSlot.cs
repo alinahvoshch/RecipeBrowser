@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using Terraria.Localization;
 using System;
 using Terraria.ID;
 using System.Linq;
@@ -14,7 +15,7 @@ using Terraria.GameContent;
 namespace RecipeBrowser.UIElements
 {
 	internal class UINPCSlot : UIElement
-	{
+	{  
 		public static Texture2D selectedBackgroundTexture = TextureAssets.InventoryBack15.Value;
 		public static Texture2D backgroundTexture = TextureAssets.InventoryBack9.Value;
 		private float scale = .75f;
@@ -129,8 +130,8 @@ namespace RecipeBrowser.UIElements
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append($"{Lang.GetNPCNameValue(npc.type)} drops: ");
-				foreach (var item in drops)
+				sb.Append(Language.GetTextValue("Mods.RecipeBrowser.BestiaryUI.NPCDrops", Lang.GetNPCNameValue(npc.type)));
+                foreach (var item in drops)
 				{
 					sb.Append($"[i:{item}]");
 				}
