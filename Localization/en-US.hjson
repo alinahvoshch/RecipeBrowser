@@ -1,4 +1,4 @@
-Mods: {
+﻿Mods: {
 	RecipeBrowser: {
 		RecipeBrowserUI: {
 			Recipes: Recipes
@@ -8,6 +8,8 @@ Mods: {
 			Help: Help
 			Close: Close
 			All: All
+			filterMod: Images/filterMod
+			filterModColorable: Images/filterModColorable
 			ModFilter: Mod Filter
 			NoFavoritedRecipes: No favorited recipes
 			RecipeAddedBy: Recipe added by

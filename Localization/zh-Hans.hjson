@@ -8,6 +8,8 @@ Mods: {
 			Help: 帮助
 			Close: 关闭
 			All: 全部
+			// filterMod: Images/filterMod
+			// filterModColorable: Images/filterModColorable
 			ModFilter: 模组
 			// NoFavoritedRecipes: No favorited recipes
 			// RecipeAddedBy: Recipe added by

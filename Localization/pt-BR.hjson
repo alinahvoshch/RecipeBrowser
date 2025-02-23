@@ -8,6 +8,8 @@ Mods: {
 			Help: Ajuda
 			Close: Fechar
 			All: Todos
+			// filterMod: Images/filterMod
+			// filterModColorable: Images/filterModColorable
 			ModFilter: Filtro de Mods
 			// NoFavoritedRecipes: No favorited recipes
 			// RecipeAddedBy: Recipe added by
