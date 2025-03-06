@@ -265,8 +265,8 @@ namespace RecipeBrowser
 			button.Height.Set(22, 0);
 			button.BackgroundColor = Color.DarkRed;
 
-			Asset<Texture2D> filterModTexture = RecipeBrowser.instance.Assets.Request<Texture2D>("Images/filterMod", AssetRequestMode.ImmediateLoad);
-			Asset<Texture2D> filterModColorableTexture = RecipeBrowser.instance.Assets.Request<Texture2D>("Images/filterModColorable", AssetRequestMode.ImmediateLoad);
+			Asset<Texture2D> filterModTexture = RecipeBrowser.instance.Assets.Request<Texture2D>(RBText("FilterMod", "ImagePaths"), AssetRequestMode.ImmediateLoad);
+			Asset<Texture2D> filterModColorableTexture = RecipeBrowser.instance.Assets.Request<Texture2D>(RBText("FilterModColorable", "ImagePaths"), AssetRequestMode.ImmediateLoad);
 			var modFilterButton = new UIHoverImageButtonMod(filterModTexture, filterModColorableTexture, RBText("ModFilter") + ": " + RBText("All"));
 			modFilterButton.Left.Set(-60, 1f);
 			modFilterButton.Top.Set(-0, 0f);
@@ -506,7 +506,7 @@ namespace RecipeBrowser
 				favoritePanel.AddDragTarget(s);
 			}
 			if(height == 0) {
-				UIText text = new UIText("No favorited recipes");
+				UIText text = new UIText(RBText("NoFavoritedRecipes"));
 				list.Add(text);
 				var a = text.GetInnerDimensions();
 				text.Recalculate();

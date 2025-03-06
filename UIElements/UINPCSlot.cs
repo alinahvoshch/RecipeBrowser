@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using Terraria.Localization;
 using System;
 using Terraria.ID;
 using System.Linq;
@@ -129,7 +130,7 @@ namespace RecipeBrowser.UIElements
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append($"{Lang.GetNPCNameValue(npc.type)} drops: ");
+				sb.Append(Language.GetTextValue("Mods.RecipeBrowser.BestiaryUI.NPCDrops", Lang.GetNPCNameValue(npc.type)));
 				foreach (var item in drops)
 				{
 					sb.Append($"[i:{item}]");
