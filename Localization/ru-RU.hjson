@@ -13,6 +13,7 @@ Mods: {
 			RecipeAddedBy: Рецепт из: {0}
 		}
 
+		# These are image paths, do not localize unless you make your own version of these png files in your language.
 		ImagePaths: {
 			FilterMod: Images/filterMod_ru-RU
 			FilterModColorable: Images/filterModColorable_ru-RU

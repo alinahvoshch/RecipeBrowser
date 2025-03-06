@@ -13,6 +13,7 @@ Mods: {
 			// RecipeAddedBy: Recipe added by {0}
 		}
 
+		# These are image paths, do not localize unless you make your own version of these png files in your language.
 		ImagePaths: {
 			// FilterMod: Images/filterMod
 			// FilterModColorable: Images/filterModColorable
@@ -356,12 +357,12 @@ Mods: {
 				}
 
 				RecipeBrowserPosition: {
-					// Label: Recipe Browser Poisition
+					// Label: Recipe Browser Position
 					// Tooltip: Position of the Recipe Browser UI. This will automatically save, no need to adjust
 				}
 
 				FavoritedRecipePanelPosition: {
-					// Label: Favorited Recipes Poisition
+					// Label: Favorited Recipes Position
 					// Tooltip: Position of the Favorited Recipes UI. This will automatically save, no need to adjust
 				}
 
