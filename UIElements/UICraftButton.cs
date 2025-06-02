@@ -45,7 +45,7 @@ namespace RecipeBrowser.UIElements
 				if (IsMouseHovering) {
 					// Main.hoverItemName = ableToCraft ? "Craft" : ""; // "Craft ingredients first"?
 					if (ableToCraft)
-						Terraria.ModLoader.UI.UICommon.TooltipMouseText("Craft");
+						Terraria.ModLoader.UI.UICommon.TooltipMouseText(CraftUI.RBText("Craft"));
 				}
 			}
 		}

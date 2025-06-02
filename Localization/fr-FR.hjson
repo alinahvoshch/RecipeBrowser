@@ -41,6 +41,7 @@ Mods: {
 			EmptyQuerySlotHint: Placer un objet ici
 			ShowInheritedRecipes: Afficher les recettes héritées
 			ShowUniqueRecipes: Afficher des recettes uniques
+			// NoTileEntry: " (err no entry)"
 		}
 
 		RecipeCatalogueFilters: {
@@ -56,6 +57,8 @@ Mods: {
 			// DisabledRecipes: Show recipes disabled by Mods
 			// Unresearched: Unresearched
 			// All: All
+			// RMB: (RMB)
+			// RecipesRemainToBeCalculated: recipes remain to be calculated
 
 			Weapons: {
 				// Name: Weapons
@@ -187,6 +190,7 @@ Mods: {
 			ToggleUnboundHint: Définir le raccourci clavier pour afficher
 			AlwaysShow: Toujours afficher
 			ShowWhenInventory: Afficher avec l'inventaire
+			// NoRecipeFoundFor: "No recipe found for "
 		}
 
 		CraftUI: {
@@ -228,6 +232,21 @@ Mods: {
 				'''
 			BottomInstructions: Clic droit sur une recette pour accéder à cet onglet
 			NoPathsFound: L'arbre de fabrication de cet objet est manquant ou indisponible
+			// Craft: Craft
+			// Duplicate: Duplicate
+			// Missing: "Missing "
+			// Unseen: "Unseen "
+			// Cost: "Cost: "
+			// Have: Have
+			// Purchase: Purchase
+			// From: from
+			// For: for
+			// Mine: Mine
+			// FromTheWorld: from the world
+			// BugNet: Bug Net
+			// ByCapturing: by capturing
+			// Need: Need
+			// Farm: Farm
 		}
 
 		ItemCatalogueUI: {
@@ -393,5 +412,7 @@ Mods: {
 				}
 			}
 		}
+
+		// ItemLostInQuerySlotWarning: "You left an item in the recipe browser with a full inventory and have lost the item: "
 	}
 }

@@ -41,6 +41,7 @@ Mods: {
 			EmptyQuerySlotHint: Поместите предмет сюда
 			ShowInheritedRecipes: Показывать унаследованные рецепты станции
 			ShowUniqueRecipes: Показывать уникальные рецепты станции
+			// NoTileEntry: " (err no entry)"
 		}
 
 		RecipeCatalogueFilters: {
@@ -60,6 +61,8 @@ Mods: {
 			DisabledRecipes: Показывать рецепты, удалённые модами
 			Unresearched: Показать только неиследованные предметы
 			All: Все предметы
+			// RMB: (RMB)
+			// RecipesRemainToBeCalculated: recipes remain to be calculated
 
 			Weapons: {
 				Name: Оружие
@@ -191,6 +194,7 @@ Mods: {
 			ToggleUnboundHint: установите горячую клавишу
 			AlwaysShow: Показывать всегда
 			ShowWhenInventory: Показывать при открытом инвентаре
+			// NoRecipeFoundFor: "No recipe found for "
 		}
 
 		CraftUI: {
@@ -224,6 +228,21 @@ Mods: {
 			MagicStorageTooltip: Учитывать предметы и станции из ближайшего магического хранилища (в разработке)
 			BottomInstructions: Нажмите ПКМ по рецепту, чтобы перейти в это меню
 			NoPathsFound: Ветка создания для этого предмета отсутствует или недоступна
+			// Craft: Craft
+			// Duplicate: Duplicate
+			// Missing: "Missing "
+			// Unseen: "Unseen "
+			// Cost: "Cost: "
+			// Have: Have
+			// Purchase: Purchase
+			// From: from
+			// For: for
+			// Mine: Mine
+			// FromTheWorld: from the world
+			// BugNet: Bug Net
+			// ByCapturing: by capturing
+			// Need: Need
+			// Farm: Farm
 		}
 
 		ItemCatalogueUI: {
@@ -393,5 +412,7 @@ Mods: {
 				}
 			}
 		}
+
+		// ItemLostInQuerySlotWarning: "You left an item in the recipe browser with a full inventory and have lost the item: "
 	}
 }

@@ -73,7 +73,7 @@ namespace RecipeBrowser.UIElements
 
 			if (this == SharedUI.instance.ObtainableFilter.button && IsMouseHovering) {
 				if(RecipeBrowser.instance.concurrentTasks.Count > 0)
-					Terraria.ModLoader.UI.UICommon.TooltipMouseText($"{hoverText}\n{RecipeBrowser.instance.concurrentTasks.Count} recipes remain to be calculated");
+					Terraria.ModLoader.UI.UICommon.TooltipMouseText($"{hoverText}\n{RecipeBrowser.instance.concurrentTasks.Count} {SharedUI.RBText("RecipesRemainToBeCalculated")}");
 				//spriteBatch.DrawString(FontAssets.MouseText.Value, UISystem.Instance.concurrentTasks.Count + "", dimensions.Position(), Color.White);
 			}
 		}
