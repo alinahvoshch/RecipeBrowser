@@ -190,7 +190,7 @@ Mods: {
 			ToggleUnboundHint: 设置快捷键以开关
 			AlwaysShow: 永远显示
 			ShowWhenInventory: 仅在打开物品栏时显示
-			NoRecipeFoundFor: "未找到配方"
+			NoRecipeFoundFor: 未找到配方
 		}
 
 		CraftUI: {
