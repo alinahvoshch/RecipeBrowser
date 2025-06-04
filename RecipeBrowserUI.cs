@@ -664,7 +664,7 @@ namespace RecipeBrowser
 					RecipeCatalogueUI.instance.mainPanel.Append(SharedUI.instance.sortsAndFiltersPanel);
 
 					SharedUI.instance.updateNeeded = true;
-					if (SharedUI.instance.SelectedCategory?.name == ArmorSetFeatureHelper.ArmorSetsHoverTest) {
+					if (SharedUI.instance.SelectedCategory?.internalName == ArmorSetFeatureHelper.ArmorSetsInternalName) {
 						SharedUI.instance.SelectedCategory = SharedUI.instance.categories[0];
 					}
 				}

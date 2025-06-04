@@ -203,6 +203,7 @@ namespace RecipeBrowser.UIElements
 		internal static List<Tuple<Item, Item, Item, string, int>> sets;
 		internal static List<UIArmorSetCatalogueItemSlot> armorSetSlots;
 		internal static string ArmorSetsHoverTest = Language.GetTextValue("Mods.RecipeBrowser.UIArmorSetCatalogue.ArmorSets");
+		internal static string ArmorSetsInternalName = "Armor Sets";
 
 		internal static void Unload() {
 			sets = null;
