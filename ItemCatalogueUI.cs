@@ -295,7 +295,7 @@ namespace RecipeBrowser
 			itemGrid.Clear();
 			List<UIItemCatalogueItemSlot> slotsToUse = itemSlots;
 
-			if (SharedUI.instance.SelectedCategory.internalName == ArmorSetFeatureHelper.ArmorSetsInternalName) {
+			if (SharedUI.instance.SelectedCategory.name == ArmorSetFeatureHelper.ArmorSetsInternalName) {
 				if (ArmorSetFeatureHelper.armorSetSlots == null)
 					ArmorSetFeatureHelper.CalculateArmorSets();
 				slotsToUse = ArmorSetFeatureHelper.armorSetSlots.Cast<UIItemCatalogueItemSlot>().ToList();
@@ -421,7 +421,7 @@ namespace RecipeBrowser
 
 			if (itemDescriptionFilter.currentString.Length > 0)
 			{
-				if (SharedUI.instance.SelectedCategory.internalName == ArmorSetFeatureHelper.ArmorSetsInternalName) {
+				if (SharedUI.instance.SelectedCategory.name == ArmorSetFeatureHelper.ArmorSetsInternalName) {
 					if (slot is UIArmorSetCatalogueItemSlot setCatalogueItemSlot)
 						return setCatalogueItemSlot.set.Item4.IndexOf(itemDescriptionFilter.currentString, StringComparison.OrdinalIgnoreCase) != -1;
 				}

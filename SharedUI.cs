@@ -176,7 +176,7 @@ namespace RecipeBrowser
 					visibleSubCategories.AddRange(category.subCategories);
 					category.button.selected = true;
 				}
-				if (RecipeBrowserUI.instance.CurrentPanel == RecipeBrowserUI.RecipeCatalogue && category.internalName == ArmorSetFeatureHelper.ArmorSetsInternalName)
+				if (RecipeBrowserUI.instance.CurrentPanel == RecipeBrowserUI.RecipeCatalogue && category.name == ArmorSetFeatureHelper.ArmorSetsInternalName)
 					visibleCategories.Remove(category);
 			}
 
@@ -628,7 +628,7 @@ namespace RecipeBrowser
 				else {
 					bool placed = false;
 					foreach (var item in categories) {
-						if (item.internalName == modCategory.parent) {
+						if (item.name == modCategory.parent) {
 							item.subCategories.Add(new Category(modCategory.name, modCategory.name, modCategory.belongs, modCategory.icon));
 							placed = true;
 						}
@@ -646,12 +646,12 @@ namespace RecipeBrowser
 				else {
 					bool placed = false;
 					foreach (var item in categories) {
-						if (item.internalName == modFilter.parent) {
+						if (item.name == modFilter.parent) {
 							item.filters.Add(new Filter(modFilter.name, modFilter.belongs, modFilter.icon));
 							placed = true;
 						}
 						foreach (var subCategory in item.subCategories) {
-							if (subCategory.internalName == modFilter.parent) {
+							if (subCategory.name == modFilter.parent) {
 								subCategory.filters.Add(new Filter(modFilter.name, modFilter.belongs, modFilter.icon));
 								placed = true;
 							}
@@ -766,7 +766,7 @@ namespace RecipeBrowser
 		private bool BelongsInOther(Item item) {
 			var cats = categories.Skip(1).Take(categories.Count - 2);
 			foreach (var category in cats) {
-				if(category.internalName == ArmorSetFeatureHelper.ArmorSetsInternalName)
+				if(category.name == ArmorSetFeatureHelper.ArmorSetsInternalName)
 					continue;
 				if (category.BelongsRecursive(item))
 					return false;
@@ -937,7 +937,7 @@ namespace RecipeBrowser
 	// All children belong to parent -> yes.
 	internal class Category // Filter
 	{
-		internal string internalName;
+		internal string name; // internalName, can't rename since pinyin mod uses publicizer to access field
 		internal string displayName;
 		internal Predicate<Item> belongs;
 		internal List<Category> subCategories;
@@ -950,7 +950,7 @@ namespace RecipeBrowser
 		public Category(string internalName, string displayName, Predicate<Item> belongs, Asset<Texture2D> texture = null) {
 			if (texture == null)
 				texture = RecipeBrowser.instance.Assets.Request<Texture2D>("Images/sortAmmo", AssetRequestMode.ImmediateLoad);
-			this.internalName = internalName;
+			this.name = internalName;
 			this.displayName = displayName;
 			subCategories = new List<Category>();
 			sorts = new List<Sort>();
