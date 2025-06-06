@@ -238,9 +238,9 @@ Mods: {
 			From: от
 			For: за
 			Mine: Добыча
-			FromTheWorld: , добыв в мире
+			FromTheWorld: ", добыв в мире"
 			BugNet: Сачок
-			ByCapturing: , поймав сачком
+			ByCapturing: ", поймав сачком"
 			Need: Требуется
 			Farm: Добыча
 		}

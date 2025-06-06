@@ -3,7 +3,7 @@ de-DE, 28/225, 12%, missing 197
 it-IT, 28/225, 12%, missing 197
 fr-FR, 95/225, 42%, missing 130
 es-ES, 49/225, 22%, missing 176
-ru-RU, 205/225, 91%, missing 20
+ru-RU, 225/225, 100%, missing 0
 zh-Hans, 225/225, 100%, missing 0
 pt-BR, 95/225, 42%, missing 130
 pl-PL, 80/225, 36%, missing 145
