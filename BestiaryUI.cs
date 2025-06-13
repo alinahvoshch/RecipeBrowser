@@ -196,15 +196,15 @@ namespace RecipeBrowser
 				}
 
 				// This should work with negatives, but they aren't displayed yet anyway. Vanilla, Negative (reversed), Modded
-				int aFallbackOrder = a.npcType switch {
-					< 0 => -a.npcType,
-					< 688 => a.npcType - 1000, // NPCID.Count
-					_ => a.npcType,
+				int aFallbackOrder = a.npc.netID switch {
+					< 0 => -a.npc.netID,
+					< 688 => a.npc.netID - 1000, // NPCID.Count
+					_ => a.npc.netID,
 				};
-				int bFallbackOrder = b.npcType switch {
-					< 0 => -b.npcType,
-					< 688 => b.npcType - 1000,
-					_ => b.npcType,
+				int bFallbackOrder = b.npc.netID switch {
+					< 0 => -b.npc.netID,
+					< 688 => b.npc.netID - 1000,
+					_ => b.npc.netID,
 				};
 
 				return aFallbackOrder.CompareTo(bFallbackOrder);
@@ -218,8 +218,9 @@ namespace RecipeBrowser
 			if (npcNameFilter.currentString.Length > 0)
 			{
 				bool found = false;
-				for (int type = 1; type < NPCLoader.NPCCount; type++)
-				{
+				for (int type = NPCID.NegativeIDCount + 1; type < NPCLoader.NPCCount; type++) {
+					if (type == 0)
+						continue;
 					string name = Lang.GetNPCNameValue(type);
 					if (name.IndexOf(npcNameFilter.currentString, StringComparison.OrdinalIgnoreCase) != -1)
 					{
@@ -237,12 +238,15 @@ namespace RecipeBrowser
 
 		internal void Update()
 		{
-			if (NPCLoader.NPCCount - 1 != npcSlots.Count)
+			if (NPCLoader.NPCCount - 2 + -NPCID.NegativeIDCount != npcSlots.Count)
 			{
 				// should only happen once
 				npcSlots.Clear();
-				for (int type = 1; type < NPCLoader.NPCCount; type++)
+				for (int type = NPCID.NegativeIDCount + 1; type < NPCLoader.NPCCount; type++)
 				{
+					if (type == 0)
+						continue;
+
 					NPC npc = new NPC();
 					npc.SetDefaults(type);
 					var slot = new UINPCSlot(npc);
@@ -254,9 +258,7 @@ namespace RecipeBrowser
 			updateNeeded = false;
 
 			npcGrid.Clear();
-			for (int type = 1; type < NPCLoader.NPCCount; type++)
-			{
-				var slot = npcSlots[type - 1];
+			foreach (var slot in npcSlots) {
 				if (PassNPCFilters(slot))
 				{
 					npcGrid._items.Add(slot);
@@ -362,7 +364,7 @@ namespace RecipeBrowser
 					return false;
 			}
 
-			if (Lang.GetNPCNameValue(slot.npcType).IndexOf(npcNameFilter.currentString, StringComparison.OrdinalIgnoreCase) == -1)
+			if (Lang.GetNPCNameValue(slot.npc.netID).IndexOf(npcNameFilter.currentString, StringComparison.OrdinalIgnoreCase) == -1)
 				return false;
 
 			return true;

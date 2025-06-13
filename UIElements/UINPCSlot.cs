@@ -83,6 +83,7 @@ namespace RecipeBrowser.UIElements
 					drawScale = availableWidth / height;
 				}
 			}
+			drawScale = Math.Min(drawScale, 0.8f);
 			Vector2 drawPosition = dimensions.Position();
 			drawPosition.X += backgroundTexture.Width * scale / 2f - (float)width * drawScale / 2f;
 			drawPosition.Y += backgroundTexture.Height * scale / 2f - (float)height * drawScale / 2f;
@@ -93,7 +94,7 @@ namespace RecipeBrowser.UIElements
 
 			if (IsMouseHovering)
 			{
-				Terraria.ModLoader.UI.UICommon.TooltipMouseText(Lang.GetNPCNameValue(npc.type) + (npc.ModNPC != null && ModContent.GetInstance<RecipeBrowserClientConfig>().ShowNPCModSource ? " [" + npc.ModNPC.Mod.DisplayName + "]" : ""));
+				Terraria.ModLoader.UI.UICommon.TooltipMouseText(Lang.GetNPCNameValue(npc.netID) + (npc.ModNPC != null && ModContent.GetInstance<RecipeBrowserClientConfig>().ShowNPCModSource ? " [" + npc.ModNPC.Mod.DisplayName + "]" : ""));
 			}
 		}
 
@@ -130,7 +131,7 @@ namespace RecipeBrowser.UIElements
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append(Language.GetTextValue("Mods.RecipeBrowser.BestiaryUI.NPCDrops", Lang.GetNPCNameValue(npc.type)));
+				sb.Append(Language.GetTextValue("Mods.RecipeBrowser.BestiaryUI.NPCDrops", Lang.GetNPCNameValue(npc.netID)));
 				foreach (var item in drops)
 				{
 					sb.Append($"[i:{item}]");
