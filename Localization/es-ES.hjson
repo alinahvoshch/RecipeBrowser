@@ -100,6 +100,8 @@ Mods: {
 			Tiles: {
 				// Name: Tiles
 				// CraftingStations: Crafting Stations
+				// Furniture: "{$CreativePowers.TabFurniture}"
+				// Blocks: "{$CreativePowers.TabBlocks}"
 				// Containers: Containers
 				// Wiring: Wiring
 				// Statues: Statues
@@ -109,6 +111,8 @@ Mods: {
 				// LightSources: Light Sources
 				// Torches: Torches
 				// PlaceTile: Place Tile
+				// Solid: Solid
+				// NonSolid: Background
 			}
 
 			// Walls: Walls

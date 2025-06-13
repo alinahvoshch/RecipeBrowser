@@ -104,6 +104,8 @@ Mods: {
 			Tiles: {
 				Name: Размещаемое
 				CraftingStations: Странции для создания
+				// Furniture: "{$CreativePowers.TabFurniture}"
+				// Blocks: "{$CreativePowers.TabBlocks}"
 				Containers: Хранилища
 				Wiring: Проводка
 				Statues: Статуи
@@ -113,6 +115,8 @@ Mods: {
 				LightSources: Источники света
 				Torches: Факелы
 				PlaceTile: Сортировать по способу размещения
+				// Solid: Solid
+				// NonSolid: Background
 			}
 
 			Walls: Стены

@@ -297,7 +297,7 @@ namespace RecipeBrowser
 			ItemID.Extractinator, ItemID.UnicornonaStick, ItemID.SilverHelmet, ItemID.BunnyHood, ItemID.ZephyrFish, ItemID.Sign, ItemID.FallenStarfish,
 			ItemID.HealingPotion, ItemID.OrangeDye, ItemID.Candelabra, ItemID.GrandfatherClock, ItemID.WoodenDoor, ItemID.WoodenChair, ItemID.PalmWoodTable, ItemID.ChineseLantern,
 			ItemID.RainbowTorch, ItemID.GoldBunny, ItemID.WoodenDoor, ItemID.WoodenChair, ItemID.PalmWoodTable, ItemID.ChineseLantern, ItemID.RainbowTorch,
-			ItemID.KingSlimeBossBag, ItemID.WoodenCrate, ItemID.WoodenCrateHard, ItemID.EyeOfCthulhuBossBag, ItemID.PlanteraBossBag, ItemID.HerbBag
+			ItemID.KingSlimeBossBag, ItemID.WoodenCrate, ItemID.WoodenCrateHard, ItemID.EyeOfCthulhuBossBag, ItemID.PlanteraBossBag, ItemID.HerbBag, ItemID.Bookcase, ItemID.DirtBlock, ItemID.ActiveStoneBlock, ItemID.InactiveStoneBlock
 		};
 
 		private void SetupSortsAndCategories() {
@@ -451,6 +451,11 @@ namespace RecipeBrowser
 			vanity.SetExclusions(new List<Filter>() { vanity, armor });
 			armor.SetExclusions(new List<Filter>() { vanity, armor });
 
+			var solidTile = new MutuallyExclusiveFilter(RBText("Tiles.Solid"), x => x.createTile > 0 && Main.tileSolid[x.createTile], ResizeImage(TextureAssets.Item[ItemID.ActiveStoneBlock], 24, 24));
+			var nonSolidTile = new MutuallyExclusiveFilter(RBText("Tiles.NonSolid"), x => x.createTile > 0 && !Main.tileSolid[x.createTile], ResizeImage(TextureAssets.Item[ItemID.InactiveStoneBlock], 24, 24));
+			solidTile.SetExclusions([solidTile, nonSolidTile]);
+			nonSolidTile.SetExclusions([solidTile, nonSolidTile]);
+
 			categories = new List<Category>() {
 				new Category("All", RBText("All"), x=> true, smallAll),
 				// TODO: Filter out tools from weapons. Separate belongs and doesn't belong predicates? How does inheriting work again? Other?
@@ -506,6 +511,12 @@ namespace RecipeBrowser
 					subCategories = new List<Category>()
 					{
 						new Category("Crafting Stations", RBText("Tiles.CraftingStations"), x=>RecipeCatalogueUI.instance.craftingTiles.Contains(x.createTile), smallCraftingStation),
+						// Option: Could use vanilla logic: new Terraria.GameContent.Creative.ItemFilters.Furniture().FitsFilter
+						new Category("Furniture", RBText("Tiles.Furniture"), x=>x.createTile > 0 && Main.tileFrameImportant[x.createTile], ResizeImage2424(TextureAssets.Item[ItemID.Bookcase])),
+						// Checking TileObjectData.GetTileData(x.createTile, 0) == null instead would allow traps in Blocks, but then duplicates happen.
+						new Category("Blocks", RBText("Tiles.Blocks"), x=> x.createTile > 0 && !Main.tileFrameImportant[x.createTile], ResizeImage2424(TextureAssets.Item[ItemID.DirtBlock])) {
+							filters = [solidTile, nonSolidTile]
+						},
 						new Category("Containers", RBText("Tiles.Containers"), x=>x.createTile!=-1 && Main.tileContainer[x.createTile], smallContainer),
 						new Category("Wiring", RBText("Tiles.Wiring"), x=>ItemID.Sets.SortingPriorityWiring[x.type] > -1, smallWiring),
 						new Category("Statues", RBText("Tiles.Statues"), x=>GenVars.statueList.Any(point => point.X == x.createTile && point.Y == x.placeStyle), smallStatue), // Alphabet statues not here, should they be included?
