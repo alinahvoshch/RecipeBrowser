@@ -45,11 +45,14 @@ namespace RecipeBrowser
 		internal static void SaveConfig() {
 			// in-game ModConfig saving from mod code is not supported yet in tmodloader, and subject to change, so we need to be extra careful.
 			// This code only supports client configs, and doesn't call onchanged. It also doesn't support ReloadRequired or anything else.
-			MethodInfo saveMethodInfo = typeof(ConfigManager).GetMethod("Save", BindingFlags.Static | BindingFlags.NonPublic);
-			if (saveMethodInfo != null)
-				saveMethodInfo.Invoke(null, new object[] { ModContent.GetInstance<RecipeBrowserClientConfig>() });
-			else
-				RecipeBrowser.instance.Logger.Warn("In-game SaveConfig failed, code update required");
+			try {
+				MethodInfo saveMethodInfo = typeof(ConfigManager).GetMethod("Save", BindingFlags.Static | BindingFlags.NonPublic);
+				if (saveMethodInfo != null)
+					saveMethodInfo.Invoke(null, new object[] { ModContent.GetInstance<RecipeBrowserClientConfig>() });
+				else
+					RecipeBrowser.instance.Logger.Warn("In-game SaveConfig failed, code update required");
+			}
+			catch { }
 		}
 	}
 
