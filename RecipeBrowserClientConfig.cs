@@ -10,6 +10,8 @@ namespace RecipeBrowser
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 
+		public static RecipeBrowserClientConfig Instance = null;
+
 		[DefaultValue(true)]
 		public bool ShowRecipeModSource { get; set; }
 
@@ -37,14 +39,24 @@ namespace RecipeBrowser
 		[DefaultValue(true)]
 		public bool OnlyShowFavoritedWhileInInventory { get; set; }
 
+		[DefaultValue(ShowOtherPlayersFavoritedRecipesOption.ShowAll)]
+		public ShowOtherPlayersFavoritedRecipesOption ShowOtherPlayersFavoritedRecipes { get; set; }
+
 		internal static void SaveConfig() {
 			// in-game ModConfig saving from mod code is not supported yet in tmodloader, and subject to change, so we need to be extra careful.
 			// This code only supports client configs, and doesn't call onchanged. It also doesn't support ReloadRequired or anything else.
 			MethodInfo saveMethodInfo = typeof(ConfigManager).GetMethod("Save", BindingFlags.Static | BindingFlags.NonPublic);
 			if (saveMethodInfo != null)
-				saveMethodInfo.Invoke(null, new object[] { ModContent.GetInstance< RecipeBrowserClientConfig>() });
+				saveMethodInfo.Invoke(null, new object[] { ModContent.GetInstance<RecipeBrowserClientConfig>() });
 			else
 				RecipeBrowser.instance.Logger.Warn("In-game SaveConfig failed, code update required");
 		}
+	}
+
+	public enum ShowOtherPlayersFavoritedRecipesOption
+	{
+		ShowAll,
+		ShowTeamOnly,
+		Hide
 	}
 }

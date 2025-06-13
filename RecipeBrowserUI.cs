@@ -1,18 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RecipeBrowser.UIElements;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using ReLogic.Content;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.ModLoader.UI;
-using Terraria.GameContent;
 
 namespace RecipeBrowser
 {
@@ -40,6 +39,7 @@ namespace RecipeBrowser
 		internal UIDragableElement mainPanel;
 		internal UIDragablePanel favoritePanel;
 		internal UIElements.UICycleImage HideUnlessInventoryToggle;
+		internal UIElements.UICycleImage ShowOtherPlayersFavoritesToggle;
 		internal UIHoverImageButton closeFavoritePanelButton;
 		internal UIHoverImageButton closeButton;
 
@@ -321,6 +321,17 @@ namespace RecipeBrowser
 				RecipeBrowserClientConfig.SaveConfig();
 			};
 			favoritePanel.Append(HideUnlessInventoryToggle);
+
+			ShowOtherPlayersFavoritesToggle = new UICycleImage(RecipeBrowser.instance.Assets.Request<Texture2D>("UIElements/ShowOtherPlayersRecipesToggle", AssetRequestMode.ImmediateLoad), 3, [RBText("ShowOtherPlayersFavorited", "FavoritedUI"), RBText("ShowTeammatesFavorited", "FavoritedUI"), RBText("HideOtherPlayersFavorited", "FavoritedUI")], 16, 12);
+			ShowOtherPlayersFavoritesToggle.Top.Set(40, 0f);
+			ShowOtherPlayersFavoritesToggle.Left.Set(-15, 1f);
+			ShowOtherPlayersFavoritesToggle.CurrentState = (int)config.ShowOtherPlayersFavoritedRecipes;
+			ShowOtherPlayersFavoritesToggle.OnStateChanged += (s, e) => {
+				favoritePanelUpdateNeeded = true;
+				config.ShowOtherPlayersFavoritedRecipes = (ShowOtherPlayersFavoritedRecipesOption)ShowOtherPlayersFavoritesToggle.CurrentState;
+				RecipeBrowserClientConfig.SaveConfig();
+			};
+			favoritePanel.Append(ShowOtherPlayersFavoritesToggle);
 		}
 
 		//private void ItemChecklistRadioButton_OnRightClick(UIMouseEvent evt, UIElement listeningElement)
@@ -421,7 +432,10 @@ namespace RecipeBrowser
 		internal bool favoritePanelUpdateNeeded;
 		internal void UpdateFavoritedPanel()
 		{
-			if(HideUnlessInventoryToggle.CurrentState == 1 && lastMainPlayerInventory != Main.playerInventory && !ForceHideFavoritePanel/* && !ShouldShowFavoritePanel.HasValue*/) {
+			HideUnlessInventoryToggle.CurrentState = RecipeBrowserClientConfig.Instance.OnlyShowFavoritedWhileInInventory ? 1 : 0;
+			ShowOtherPlayersFavoritesToggle.CurrentState = (int)RecipeBrowserClientConfig.Instance.ShowOtherPlayersFavoritedRecipes;
+
+			if (HideUnlessInventoryToggle.CurrentState == 1 && lastMainPlayerInventory != Main.playerInventory && !ForceHideFavoritePanel/* && !ShouldShowFavoritePanel.HasValue*/) {
 				ShowFavoritePanel = Main.playerInventory;
 			}
 			lastMainPlayerInventory = Main.playerInventory;
@@ -445,6 +459,8 @@ namespace RecipeBrowser
 			}
 			favoritePanel.RemoveAllChildren();
 
+			if (Main.netMode != NetmodeID.SinglePlayer)
+				favoritePanel.Append(ShowOtherPlayersFavoritesToggle);
 			favoritePanel.Append(HideUnlessInventoryToggle);
 			favoritePanel.Append(closeFavoritePanelButton);
 			if (Main.GameUpdateCount > 0) {
@@ -472,22 +488,23 @@ namespace RecipeBrowser
 
 			// TODO: support non-recipe paths, favorite from Craft Path entries: Farm Item from Enemy X,Y,Z
 			// Support setting recipe to a desired count. (Alt click on ingredient that is required X times, the favorited recipe will be multiplied by X) Or scroll to increase? Buttons?
-			for (int i = 0; i < Main.maxPlayers; i++)
-			{
-				if (i != Main.myPlayer && Main.player[i].active)
-				{
-					foreach (var recipeIndex in Main.player[i].GetModPlayer<RecipeBrowserPlayer>().favoritedRecipes) // Collection was modified potential with receiving other player favorited recipes?
-					{
-						Recipe r = Main.recipe[recipeIndex];
-						UIRecipeProgress s = new UIRecipeProgress(recipeIndex, r, order, i);
-						order++;
-						s.Recalculate();
-						var a = s.GetInnerDimensions();
-						s.Width.Precent = 1;
-						list.Add(s);
-						height += (int)(a.Height + list.ListPadding);
-						width = Math.Max(width, (int)a.Width);
-						favoritePanel.AddDragTarget(s);
+			if (RecipeBrowserClientConfig.Instance.ShowOtherPlayersFavoritedRecipes != ShowOtherPlayersFavoritedRecipesOption.Hide) {
+				for (int i = 0; i < Main.maxPlayers; i++) {
+					if (i != Main.myPlayer && Main.player[i].active) {
+						if (RecipeBrowserClientConfig.Instance.ShowOtherPlayersFavoritedRecipes == ShowOtherPlayersFavoritedRecipesOption.ShowTeamOnly && Main.player[Main.myPlayer].team > 0 && Main.player[i].team != Main.player[Main.myPlayer].team)
+							continue;
+						foreach (var recipeIndex in Main.player[i].GetModPlayer<RecipeBrowserPlayer>().favoritedRecipes) { // Collection was modified potential with receiving other player favorited recipes?
+							Recipe r = Main.recipe[recipeIndex];
+							UIRecipeProgress s = new UIRecipeProgress(recipeIndex, r, order, i);
+							order++;
+							s.Recalculate();
+							var a = s.GetInnerDimensions();
+							s.Width.Precent = 1;
+							list.Add(s);
+							height += (int)(a.Height + list.ListPadding);
+							width = Math.Max(width, (int)a.Width);
+							favoritePanel.AddDragTarget(s);
+						}
 					}
 				}
 			}
@@ -516,6 +533,8 @@ namespace RecipeBrowser
 				favoritePanel.AddDragTarget(text);
 			}
 			favoritePanel.Height.Pixels = height + favoritePanel.PaddingBottom + favoritePanel.PaddingTop - list.ListPadding;
+			if (favoritePanel.Height.Pixels < 64 && Main.netMode != NetmodeID.SinglePlayer)
+				favoritePanel.Height.Pixels = 64; // Room for extra toggle in MP.
 			favoritePanel.Width.Pixels = width + 18;
 			favoritePanel.Recalculate();
 

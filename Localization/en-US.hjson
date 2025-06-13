@@ -194,6 +194,9 @@ Mods: {
 			ToggleUnboundHint: Set hotkey to toggle
 			AlwaysShow: Always show
 			ShowWhenInventory: Show when inventory
+			ShowOtherPlayersFavorited: Show all other players' favorited recipes
+			ShowTeammatesFavorited: Show teammates' favorited recipes only (if on team)
+			HideOtherPlayersFavorited: Hide other players' favorited recipes
 			NoRecipeFoundFor: "No recipe found for "
 		}
 
@@ -395,8 +398,28 @@ Mods: {
 
 				OnlyShowFavoritedWhileInInventory: {
 					Label: Only Show Favorited While Inventory Open
-					Tooltip: Automatically show and hide favorited recipes panel. This will automatically save, no need to adjust
+					Tooltip:
+						'''
+						Automatically show and hide favorited recipes panel.
+						This will automatically save, no need to adjust
+						'''
 				}
+
+				ShowOtherPlayersFavoritedRecipes: {
+					Label: Show Other Players' Favorited Recipes
+					Tooltip:
+						'''
+						Whether or not to show the favorited recipes of other players for collaboration.
+						This will automatically save, no need to adjust
+						'''
+				}
+			}
+
+			ShowOtherPlayersFavoritedRecipesOption: {
+				Tooltip: ""
+				ShowAll.Label: Show All
+				ShowTeamOnly.Label: Show Team Only
+				Hide.Label: Hide
 			}
 		}
 

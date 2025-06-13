@@ -194,6 +194,9 @@ Mods: {
 			ToggleUnboundHint: 设置快捷键以开关
 			AlwaysShow: 永远显示
 			ShowWhenInventory: 仅在打开物品栏时显示
+			// ShowOtherPlayersFavorited: Show all other players' favorited recipes
+			// ShowTeammatesFavorited: Show teammates' favorited recipes only (if on team)
+			// HideOtherPlayersFavorited: Hide other players' favorited recipes
 			NoRecipeFoundFor: 未找到配方
 		}
 
@@ -397,6 +400,22 @@ Mods: {
 					Label: 仅在打开物品栏时显示收藏的配方窗口
 					Tooltip: 自动显示和隐藏收藏的配方面板. 会自动保存, 无需调整
 				}
+
+				ShowOtherPlayersFavoritedRecipes: {
+					// Label: Show Other Players' Favorited Recipes
+					/* Tooltip:
+						'''
+						Whether or not to show the favorited recipes of other players for collaboration.
+						This will automatically save, no need to adjust
+						''' */
+				}
+			}
+
+			ShowOtherPlayersFavoritedRecipesOption: {
+				// Tooltip: ""
+				// ShowAll.Label: Show All
+				// ShowTeamOnly.Label: Show Team Only
+				// Hide.Label: Hide
 			}
 		}
 
