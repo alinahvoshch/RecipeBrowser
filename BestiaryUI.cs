@@ -1,9 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using RecipeBrowser.UIElements;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -22,6 +27,7 @@ namespace RecipeBrowser
 
 		internal static Color color = new Color(28, 187, 180);
 
+		internal UIPanel npcGridPanel;
 		internal UIGrid npcGrid;
 		internal UIHorizontalGrid lootGrid;
 		internal bool updateNeeded;
@@ -32,6 +38,10 @@ namespace RecipeBrowser
 		internal UICheckbox EncounteredRadioButton;
 		internal UICheckbox HasLootRadioButton;
 		internal UICheckbox NewLootOnlyRadioButton;
+
+		internal UIRadioButtonGroup RadioButtonGroup;
+		internal UIRadioButton BestiarySortRadioButton;
+		internal UIRadioButton IDSortRadioButton;
 
 		internal List<UINPCSlot> npcSlots;
 		internal UINPCSlot queryLootNPC;
@@ -52,7 +62,7 @@ namespace RecipeBrowser
 			mainPanel.Height.Set(-20, 1f);
 			mainPanel.Width.Set(0, 1f);
 
-			UIPanel npcGridPanel = new UIPanel();
+			npcGridPanel = new UIPanel();
 			npcGridPanel.SetPadding(6);
 			npcGridPanel.Top.Pixels = 46;
 			npcGridPanel.Width.Set(0, 1f);
@@ -65,6 +75,7 @@ namespace RecipeBrowser
 			npcGrid.Width.Set(-20, 1f);
 			npcGrid.Height.Set(0, 1f);
 			npcGrid.ListPadding = 2f;
+			npcGrid.alternateSort = CustomSort;
 			npcGridPanel.Append(npcGrid);
 
 			var npcGridScrollbar = new FixedUIScrollbar(RecipeBrowserUI.instance.userInterface);
@@ -99,6 +110,19 @@ namespace RecipeBrowser
 			queryItem = new UIBestiaryQueryItemSlot(new Item());
 			queryItem.emptyHintText = RBText("EmptyQuerySlotHint");
 			mainPanel.Append(queryItem);
+
+			RadioButtonGroup = new UIRadioButtonGroup();
+			RadioButtonGroup.Left.Pixels = 45;
+			RadioButtonGroup.Width.Set(180, 0f);
+			BestiarySortRadioButton = new UIRadioButton(Language.GetTextValue("BestiaryInfo.Sort_BestiaryID"), "");
+			IDSortRadioButton = new UIRadioButton(Language.GetTextValue("BestiaryInfo.Sort_ID"), "");
+			RadioButtonGroup.Add(BestiarySortRadioButton);
+			RadioButtonGroup.Add(IDSortRadioButton);
+			mainPanel.Append(RadioButtonGroup);
+			BestiarySortRadioButton.Selected = true;
+			
+			BestiarySortRadioButton.OnSelectedChanged += (a, b) => updateNeeded = true;
+			IDSortRadioButton.OnSelectedChanged += (a, b) => updateNeeded = true;
 
 			npcNameFilter = new NewUITextBox(RBText("FilterByName", "Common"));
 			npcNameFilter.OnTextChanged += () => { ValidateNPCFilter(); updateNeeded = true; };
@@ -153,6 +177,40 @@ namespace RecipeBrowser
 			updateNeeded = true;
 
 			return mainPanel;
+		}
+
+		private int CustomSort(UIElement x, UIElement y) {
+			if (x is UINPCSlot a && y is UINPCSlot b) {
+				if (BestiarySortRadioButton.Selected) {
+					bool aHasSort = ContentSamples.NpcBestiarySortingId.TryGetValue(a.npcType, out int aSortValue);
+					bool bHasSort = ContentSamples.NpcBestiarySortingId.TryGetValue(b.npcType, out int bSortValue);
+
+					if (aHasSort && bHasSort)
+						return aSortValue.CompareTo(bSortValue);
+
+					if (aHasSort)
+						return -1;
+
+					if (bHasSort)
+						return 1;
+				}
+
+				// This should work with negatives, but they aren't displayed yet anyway. Vanilla, Negative (reversed), Modded
+				int aFallbackOrder = a.npcType switch {
+					< 0 => -a.npcType,
+					< 688 => a.npcType - 1000, // NPCID.Count
+					_ => a.npcType,
+				};
+				int bFallbackOrder = b.npcType switch {
+					< 0 => -b.npcType,
+					< 688 => b.npcType - 1000,
+					_ => b.npcType,
+				};
+
+				return aFallbackOrder.CompareTo(bFallbackOrder);
+			}
+
+			return x.CompareTo(y);
 		}
 
 		private void ValidateNPCFilter()
