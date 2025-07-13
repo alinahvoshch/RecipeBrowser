@@ -118,10 +118,10 @@ Mods: {
 			Walls: 背景墙
 
 			Accessories: {
-				// Name: Accessories
+				Name: 饰品
 
 				Wings: {
-					// Name: Wings
+					Name: 翅膀
 					// FlightTime: Flight Time (Ascending)
 					// HorizontalSpeed: Horizontal Speed (Ascending)
 					// AccelerationMultiplier: Acceleration Multiplier (Ascending)

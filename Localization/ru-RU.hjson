@@ -122,10 +122,10 @@ Mods: {
 			Walls: Стены
 
 			Accessories: {
-				// Name: Accessories
+				Name: Аксессуары
 
 				Wings: {
-					// Name: Wings
+					Name: Крылья
 					// FlightTime: Flight Time (Ascending)
 					// HorizontalSpeed: Horizontal Speed (Ascending)
 					// AccelerationMultiplier: Acceleration Multiplier (Ascending)
