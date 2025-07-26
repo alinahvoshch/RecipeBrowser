@@ -122,9 +122,9 @@ Mods: {
 
 				Wings: {
 					Name: Wings
-					FlightTime: Flight Time (Ascending)
-					HorizontalSpeed: Horizontal Speed (Ascending)
-					AccelerationMultiplier: Acceleration Multiplier (Ascending)
+					FlightTime: Flight Time
+					HorizontalSpeed: Horizontal Speed
+					AccelerationMultiplier: Acceleration Multiplier
 				}
 			}
 
