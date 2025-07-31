@@ -514,7 +514,7 @@ namespace RecipeBrowser
 						// Option: Could use vanilla logic: new Terraria.GameContent.Creative.ItemFilters.Furniture().FitsFilter
 						new Category("Furniture", RBText("Tiles.Furniture"), x=>x.createTile > 0 && Main.tileFrameImportant[x.createTile], ResizeImage2424(TextureAssets.Item[ItemID.Bookcase])),
 						// Checking TileObjectData.GetTileData(x.createTile, 0) == null instead would allow traps in Blocks, but then duplicates happen.
-						new Category("Blocks", RBText("Tiles.Blocks"), x=> x.createTile > 0 && !Main.tileFrameImportant[x.createTile], ResizeImage2424(TextureAssets.Item[ItemID.DirtBlock])) {
+						new Category("Blocks", RBText("Tiles.Blocks"), x=> x.createTile >= 0 && !Main.tileFrameImportant[x.createTile], ResizeImage2424(TextureAssets.Item[ItemID.DirtBlock])) {
 							filters = [solidTile, nonSolidTile]
 						},
 						new Category("Containers", RBText("Tiles.Containers"), x=>x.createTile!=-1 && Main.tileContainer[x.createTile], smallContainer),
