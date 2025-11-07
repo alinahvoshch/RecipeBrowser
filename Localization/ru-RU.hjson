@@ -440,9 +440,21 @@ Mods: {
 
 			ShowOtherPlayersFavoritedRecipesOption: {
 				Tooltip: ""
-				ShowAll.Label: показывать
-				ShowTeamOnly.Label: только союзников
-				Hide.Label: не показывать
+
+				ShowAll: {
+					Label: показывать
+					// Tooltip: ""
+				}
+
+				ShowTeamOnly: {
+					Label: только союзников
+					// Tooltip: ""
+				}
+
+				Hide: {
+					Label: не показывать
+					// Tooltip: ""
+				}
 			}
 		}
 
