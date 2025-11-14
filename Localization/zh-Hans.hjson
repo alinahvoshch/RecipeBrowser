@@ -256,6 +256,8 @@ Mods: {
 			ByCapturing: 通过捕捉
 			Need: 需要
 			Farm: 种植
+			// PurchaseFrom: Purchase from
+			// DroppedBy: Dropped by
 		}
 
 		ItemCatalogueUI: {

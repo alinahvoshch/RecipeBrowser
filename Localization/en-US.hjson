@@ -256,6 +256,8 @@ Mods: {
 			ByCapturing: by capturing
 			Need: Need
 			Farm: Farm
+			PurchaseFrom: Purchase from
+			DroppedBy: Dropped by
 		}
 
 		ItemCatalogueUI: {

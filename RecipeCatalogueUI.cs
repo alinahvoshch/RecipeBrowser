@@ -377,14 +377,14 @@ namespace RecipeBrowser
 					StringBuilder craftingStationSB = new StringBuilder();
 
 					if (LootCache.instance.lootInfos.TryGetValue(itemForCraftingStation, out var npcThatDropThisItem)) {
-						craftingStationSB.Append($"Dropped by: " + string.Join(", ", npcThatDropThisItem.Select(NPCTagHandler.GenerateTag)));
+						craftingStationSB.Append($"{CraftUI.RBText("DroppedBy")}: " + string.Join(", ", npcThatDropThisItem.Select(NPCTagHandler.GenerateTag)));
 					}
 
 					RecipePath.InitializePurchasable();
 					var purchasable = RecipePath.purchasable;
 					if (purchasable.TryGetValue(itemForCraftingStation, out var shopList)) {
 						foreach (var entry in shopList) {
-							craftingStationSB.Append($"Purchase from: " + string.Join(", ", shopList.Select(x => NPCTagHandler.GenerateTag(x.npcType))));
+							craftingStationSB.Append($"{CraftUI.RBText("PurchaseFrom")}: " + string.Join(", ", shopList.Select(x => NPCTagHandler.GenerateTag(x.npcType))));
 						}
 					}
 

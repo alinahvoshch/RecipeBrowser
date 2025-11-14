@@ -264,6 +264,8 @@ Mods: {
 			ByCapturing: ", поймав сачком"
 			Need: Требуется
 			Farm: Добыча
+			// PurchaseFrom: Purchase from
+			// DroppedBy: Dropped by
 		}
 
 		ItemCatalogueUI: {
