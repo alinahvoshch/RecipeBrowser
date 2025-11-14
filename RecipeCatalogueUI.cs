@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RecipeBrowser.TagHandlers;
 using RecipeBrowser.UIElements;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,10 @@ namespace RecipeBrowser
 
 		internal Item queryLootItem; // Last clicked item ingredient/recipe result, will populate lootSourceGrid. 
 
+		internal bool tileIsItemsThatPlaceThisTileInstead = false;
+		internal int pendingQueryHowToCraftTile = -1;
+		internal bool pendingQueryHowToCraftTileShouldGoto = false;
+
 		private int tile = -1;
 		internal int Tile {
 			get { return tile; }
@@ -37,6 +43,7 @@ namespace RecipeBrowser
 					if (tileSlot.tile == value)
 						tileSlot.selected = true;
 				}
+				tileIsItemsThatPlaceThisTileInstead = false;
 			}
 		}
 
@@ -103,7 +110,11 @@ namespace RecipeBrowser
 			TileLookupRadioButton.Top.Set(42, 0f);
 			TileLookupRadioButton.Left.Set(0, 0f);
 			TileLookupRadioButton.SetText("  " + RBText("Tile"));
-			TileLookupRadioButton.OnSelectedChanged += (s, e) => { ToggleTileChooser(!mainPanel.HasChild(tileChooserPanel)); updateNeeded = true; };
+			TileLookupRadioButton.OnSelectedChanged += (s, e) => {
+				//ToggleTileChooser(!mainPanel.HasChild(tileChooserPanel)); 
+				ToggleTileChooser(TileLookupRadioButton.Selected);
+				updateNeeded = true;
+			};
 			mainPanel.Append(TileLookupRadioButton);
 
 			RadioButtonGroup = new UIRadioButtonGroup();
@@ -348,6 +359,39 @@ namespace RecipeBrowser
 			//	}
 			//}
 			UpdateGrid();
+
+			if (pendingQueryHowToCraftTile != -1) {
+				queryItem.ReplaceWithFake(0);
+				Tile = pendingQueryHowToCraftTile;
+				pendingQueryHowToCraftTile = -1;
+				tileIsItemsThatPlaceThisTileInstead = true;
+				TileLookupRadioButton.Selected = true;
+				if (pendingQueryHowToCraftTileShouldGoto) {
+					tileChooserGrid.Goto(x => x is UITileSlot tileSlot && tileSlot.tile == Tile, center: true);
+					pendingQueryHowToCraftTileShouldGoto = false;
+				}
+
+				// Note: Only shows drops and purchases for first tile that places this tile
+				int itemForCraftingStation = Terraria.ModLoader.TileLoader.GetItemDropFromTypeAndStyle(Tile);
+				if (itemForCraftingStation != 0) {
+					StringBuilder craftingStationSB = new StringBuilder();
+
+					if (LootCache.instance.lootInfos.TryGetValue(itemForCraftingStation, out var npcThatDropThisItem)) {
+						craftingStationSB.Append($"Dropped by: " + string.Join(", ", npcThatDropThisItem.Select(NPCTagHandler.GenerateTag)));
+					}
+
+					RecipePath.InitializePurchasable();
+					var purchasable = RecipePath.purchasable;
+					if (purchasable.TryGetValue(itemForCraftingStation, out var shopList)) {
+						foreach (var entry in shopList) {
+							craftingStationSB.Append($"Purchase from: " + string.Join(", ", shopList.Select(x => NPCTagHandler.GenerateTag(x.npcType))));
+						}
+					}
+
+					if (craftingStationSB.Length != 0)
+						Main.NewText(craftingStationSB.ToString());
+				}
+			}
 		}
 
 		private void UpdateGrid() {
@@ -517,42 +561,43 @@ namespace RecipeBrowser
 			}
 
 			// Filter out recipes that don't use selected Tile
-			if (Tile > -1)
-			{
-				List<int> adjTiles = new List<int>();
-				adjTiles.Add(Tile);
-				if (uniqueCheckbox.CurrentState == 0)
-				{
-					Terraria.ModLoader.ModTile modTile = Terraria.ModLoader.TileLoader.GetTile(Tile);
-					if (modTile != null)
-					{
-						adjTiles.AddRange(modTile.AdjTiles);
+			if (Tile > -1) {
+				if (tileIsItemsThatPlaceThisTileInstead) {
+					if (recipe.createItem.createTile != Tile) {
+						return false;
 					}
-					if (Tile == 302)
-						adjTiles.Add(17);
-					if (Tile == 77)
-						adjTiles.Add(17);
-					if (Tile == 133)
-					{
-						adjTiles.Add(17);
-						adjTiles.Add(77);
-					}
-					if (Tile == 134)
-						adjTiles.Add(16);
-					if (Tile == 354)
-						adjTiles.Add(14);
-					if (Tile == 469)
-						adjTiles.Add(14);
-					if (Tile == 355)
-					{
-						adjTiles.Add(13);
-						adjTiles.Add(14);
-					}
-					// TODO: GlobalTile.AdjTiles support (no player object, reflection needed since private)
 				}
-				if (!recipe.requiredTile.Any(t => adjTiles.Contains(t)))
-				{
-					return false;
+				else {
+					List<int> adjTiles = new List<int>();
+					adjTiles.Add(Tile);
+					if (uniqueCheckbox.CurrentState == 0) {
+						Terraria.ModLoader.ModTile modTile = Terraria.ModLoader.TileLoader.GetTile(Tile);
+						if (modTile != null) {
+							adjTiles.AddRange(modTile.AdjTiles);
+						}
+						if (Tile == 302)
+							adjTiles.Add(17);
+						if (Tile == 77)
+							adjTiles.Add(17);
+						if (Tile == 133) {
+							adjTiles.Add(17);
+							adjTiles.Add(77);
+						}
+						if (Tile == 134)
+							adjTiles.Add(16);
+						if (Tile == 354)
+							adjTiles.Add(14);
+						if (Tile == 469)
+							adjTiles.Add(14);
+						if (Tile == 355) {
+							adjTiles.Add(13);
+							adjTiles.Add(14);
+						}
+						// TODO: GlobalTile.AdjTiles support (no player object, reflection needed since private)
+					}
+					if (!recipe.requiredTile.Any(t => adjTiles.Contains(t))) {
+						return false;
+					}
 				}
 			}
 
