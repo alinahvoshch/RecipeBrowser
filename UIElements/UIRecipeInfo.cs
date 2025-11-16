@@ -73,7 +73,7 @@ namespace RecipeBrowser
 				int row = 0;
 				int tileIndex = 0;
 				bool comma = false;
-				if (selectedRecipe.requiredTile.Count == 0) {
+				if (selectedRecipe.requiredTile.Count == 0 && selectedRecipe.Conditions.Count == 0) {
 					sb.Append($"{(comma ? ", " : "")}[c/{Utilities.textColor.Hex3()}:{Language.GetTextValue("LegacyInterface.23")}]");
 					sbTiles.Append($"{(comma ? ", " : "")}[c/{Utilities.textColor.Hex3()}:{Language.GetTextValue("LegacyInterface.23")}]");
 					comma = true;
