@@ -311,6 +311,8 @@ Mods: {
 			ShowOnlyNPCWithNeverBeforeSeenLoot: Mostra solo PNG con bottino mai visto prima
 			// EmptyQuerySlotHint: Place item here
 			// NPCDrops: "{0} drops:"
+			// BestiaryID: Sorting by Bestiary ID
+			// SortID: Sorting by NPC ID
 		}
 
 		HelpUI: {

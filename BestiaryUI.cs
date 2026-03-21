@@ -114,8 +114,8 @@ namespace RecipeBrowser
 			RadioButtonGroup = new UIRadioButtonGroup();
 			RadioButtonGroup.Left.Pixels = 45;
 			RadioButtonGroup.Width.Set(180, 0f);
-			BestiarySortRadioButton = new UIRadioButton(Language.GetTextValue("BestiaryInfo.Sort_BestiaryID"), "");
-			IDSortRadioButton = new UIRadioButton(Language.GetTextValue("BestiaryInfo.Sort_ID"), "");
+			BestiarySortRadioButton = new UIRadioButton(RBText("BestiaryID"), "");
+			IDSortRadioButton = new UIRadioButton(RBText("SortID"), "");
 			RadioButtonGroup.Add(BestiarySortRadioButton);
 			RadioButtonGroup.Add(IDSortRadioButton);
 			mainPanel.Append(RadioButtonGroup);
