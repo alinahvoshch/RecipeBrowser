@@ -909,7 +909,7 @@ namespace RecipeBrowser
 					}
 					// TODO: icon for "and other unknown NPC"?
 				}
-				return $"[image/s0.8,v2,t{CraftUI.RBText("Farm")}:RecipeBrowser/Images/sortDamage] {ItemHoverFixTagHandler.GenerateTag(itemid, stack)} from {string.Concat(encountered.Select(x => $"[npc:{x}]"))}";
+				return $"[image/s0.8,v2,t{CraftUI.RBText("Farm")}:RecipeBrowser/Images/sortDamage] {ItemHoverFixTagHandler.GenerateTag(itemid, stack)} {CraftUI.RBText("From")} {string.Concat(encountered.Select(x => $"[npc:{x}]"))}";
 
 				//[image/tMissing Tiles[i;{ItemID.MythrilAnvil}]:
 				//return $"[image/tFarm:RecipeBrowser/Images/sortDamage] {ItemHoverFixTagHandler.GenerateTag(itemid, stack)} from {string.Concat(RecipePath.loots[itemid].Select(x => $"[npc:{x}]"))}";

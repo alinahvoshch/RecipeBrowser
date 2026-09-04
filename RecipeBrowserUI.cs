@@ -119,7 +119,8 @@ namespace RecipeBrowser
 		// Technically since RecipeBrowserUI ctor happens in Mod.Load, we could miss mods that add during Load that happen after me.
 		public void PostSetupContent()
 		{
-			mods = ModLoader.Mods.Where(mod => mod.GetContent<ModItem>().Any()).Select(mod => mod.Name).ToArray();
+			var modsWithRecipes = Main.recipe.Select(x => x.Mod?.Name).ToHashSet();
+			mods = ModLoader.Mods.Where(mod => modsWithRecipes.Contains(mod.Name) || mod.GetContent<ModItem>().Any()).Select(mod => mod.Name).ToArray();
 			ModIndex = 0;
 		}
 
@@ -370,6 +371,11 @@ namespace RecipeBrowser
 			set {
 				modIndex = value;
 				SharedUI.instance.ModFilterByFilter?.FormatText(instance.mods[modIndex]);
+				/* Attempt to auto-select filter by recipe source for mods with just recipes, but it's a bit confusing when navigating to the next mod
+				if(modIndex != 0 && !SharedUI.instance.ModFilterByFilter.button.selected && !ModLoader.GetMod(instance.mods[modIndex]).GetContent<ModItem>().Any()) {
+					SharedUI.instance.ModFilterByFilter.button.LeftClick(null);
+				}
+				*/
 				SharedUI.instance.updateNeeded = true; // Need to refresh for ModFilterByFilter
 			}
 		}
