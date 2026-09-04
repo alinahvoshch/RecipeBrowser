@@ -15,8 +15,8 @@ Mods: {
 
 		# These are image paths, do not localize unless you make your own version of these png files in your language.
 		ImagePaths: {
-			FilterMod: Images/filterMod
-			FilterModColorable: Images/filterModColorable
+			// FilterMod: Images/filterMod
+			// FilterModColorable: Images/filterModColorable
 		}
 
 		Common: {
