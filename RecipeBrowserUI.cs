@@ -126,16 +126,15 @@ namespace RecipeBrowser
 
 		public override void OnInitialize()
 		{
-            float uiWidth = 475;
-            float uiHeight = 350;;
+			float uiWidth = 475;
+			float uiHeight = 350;
 
-            if (Language.ActiveCulture.Name == "ru-RU")
-            {
-                uiWidth = 555;
-                uiHeight = 400;
-            }
+			if (Language.ActiveCulture.Name == "ru-RU") {
+				uiWidth = 555;
+				uiHeight = 400;
+			}
 
-            mainPanel = new UIDragableElement(true, true, true);
+			mainPanel = new UIDragableElement(true, true, true);
 			//mainPanel.SetPadding(0);
 			//mainPanel.PaddingTop = 4;
 			mainPanel.Left.Set(400f, 0f);
@@ -256,16 +255,15 @@ namespace RecipeBrowser
 			mainPanel.Append(button);
 			tabController.AddButton(button);
 
-            float helpLeft = -155;
-            float helpWidth = 80;
+			float helpLeft = -155;
+			float helpWidth = 80;
 
-            if (Language.ActiveCulture.Name == "ru-RU")
-            {
-                helpLeft = -180;
-                helpWidth = 108;
-            }
+			if (Language.ActiveCulture.Name == "ru-RU") {
+				helpLeft = -180;
+				helpWidth = 108;
+			}
 
-            button = new UIBottomlessPanel();
+			button = new UIBottomlessPanel();
 			button.SetPadding(0);
 			button.Left.Set(helpLeft, 1);
 			button.Width.Set(helpWidth, 0);

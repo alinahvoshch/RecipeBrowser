@@ -338,7 +338,7 @@ Mods: {
 			ShowOnlyNPCWithNeverBeforeSeenLoot: Muestra solo a los NPCs que no has conseguido todos los objetos que sueltan al matarlos
 			EmptyQuerySlotHint: Coloca un objeto
 			NPCDrops: "{0} lo ha dejado:"
-      // BestiaryID: Sorting by Bestiary ID
+			// BestiaryID: Sorting by Bestiary ID
 			// SortID: Sorting by NPC ID
 		}
 
