@@ -311,8 +311,10 @@ Mods: {
 			ShowOnlyNPCWithNeverBeforeSeenLoot: Pokaż NPC z wcześniej nie widzianym łupem
 			EmptyQuerySlotHint: Umieść tutaj przedmiot
 			// NPCDrops: "{0} drops:"
-			// BestiaryID: Sorting by Bestiary ID
-			// SortID: Sorting by NPC ID
+			// SortBestiary: "{$BestiaryInfo.Sort_BestiaryID}"
+			// SortBestiaryTooltip: Sort by {$SortBestiary}
+			// SortNPCID: NPC ID
+			// SortNPCIDTooltip: Sort by {$SortNPCID}
 		}
 
 		HelpUI: {

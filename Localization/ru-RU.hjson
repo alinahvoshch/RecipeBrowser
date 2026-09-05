@@ -323,8 +323,10 @@ Mods: {
 			ShowOnlyNPCWithNeverBeforeSeenLoot: Показывать только тех существ, с которых выпадают не полученные ранее предметы
 			EmptyQuerySlotHint: Поместите предмет сюда
 			NPCDrops: Предметы, выпадающие с существа «{0}»:
-			BestiaryID: Сортировать по ID бестиария
-			SortID: Сортировать по ID существа
+			SortBestiary: Сортировать по ID бестиария
+			SortBestiaryTooltip: Сортировать по ID бестиария
+			SortNPCID: Сортировать по ID существа
+			SortNPCIDTooltip: Сортировать по ID существа
 		}
 
 		HelpUI: {
